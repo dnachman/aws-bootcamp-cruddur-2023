@@ -9,9 +9,14 @@ Reviewed videos:
 
 Account setup:
 
--   Created a new AWS account for the class in Organizations (I have a long-standing account)
--   Create account, root user has MFA, create general user and enable MFA , generate keys
+-   Created a new AWS account for the class in Organizations (I have a long-standing account) ![Org](assets/organization.png)
+-   Create account, root user has MFA, create general user and enable MFA , generate keys ![iam user](assets/iam-user.png)
+-   Set up AWS Identity Center (SSO) as there are now a bunch of accounts and users and it's easier to manage (?) ![sso-user](assets/sso-users.png)
 -   Set up billing alarms in billing console + cloudwatch alarm to SNS (previously done on root org, updated)
+    -   Budget ![budget](assets/budgets.png)
+    -   Billing alarms ![billing-alarm](assets/billing-alarms.png)
+    -   Cloudwatch Action ![cw-alarm-action](assets/cw-alarm-action.png)
+    -   SNS topic settings ![sns-topic](assets/sns-topic.png)
 -   set up projects in github, gitpod, configuration
 
 Tasks
