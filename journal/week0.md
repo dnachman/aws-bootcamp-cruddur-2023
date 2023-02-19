@@ -22,3 +22,4 @@ Tasks
         ![Conceptual Diagram](/journal/assets/cruddur-conceptual.png "Conceptual Diagram")
     -   Logical Diagram
         ![Logical Diagram](/journal/assets/cruddur-logical.png "Logical Diagram")
+    -   Link to [Lucid Chart](https://lucid.app/lucidchart/e7536e2c-acd1-41cc-a050-12bacdb5e290/edit?viewport_loc=-191%2C109%2C1751%2C1068%2CPBoy0-Y~AgzU&invitationId=inv_fa03a8c9-582c-47b6-95d7-73640706c63b)
