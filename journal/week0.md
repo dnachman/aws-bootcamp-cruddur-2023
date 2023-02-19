@@ -19,6 +19,6 @@ Tasks
 -   Well architected workload document started
 -   lucid charts
     -   Conceptual Diagram
-        !(./assets/cruddur-conceptual.png "Conceptual Diagram")
+        ![Conceptual Diagram](/journal/assets/cruddur-conceptual.png "Conceptual Diagram")
     -   Logical Diagram
-        !(./assets/cruddur-logical.png "Conceptual Diagram")
+        ![Logical Diagram](/journal/assets/cruddur-logical.png "Logical Diagram")
