@@ -25,4 +25,27 @@
     ![](assets/wk1/docker-compose-error.png)
 
 ## Add DynamoDB local and postgres
-- 
+- Add to compose file
+- Set up our table: 
+    ```
+    aws dynamodb create-table \
+        --endpoint-url http://localhost:8000 \
+        --table-name Music \
+        --attribute-definitions AttributeName=Artist,AttributeType=S AttributeName=Album,AttributeType=S \
+        --key-schema AttributeName=Artist,KeyType=HASH AttributeName=Album,KeyType=RANGE \
+        --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+        --table-class STANDARD
+    ```
+- Check table `aws dynamodb list-tables --endpoint-url http://localhost:8000`
+    ![](assets/wk1/ddb-list-tables.png)
+- Add an item:
+    ```
+    aws dynamodb put-item \
+        --endpoint-url http://localhost:8000 \
+        --table-name Music \
+        --item '{"Artist": {"S": "Pink Floyd"}, "Album": {"S": "Dark Side of the Moon"}}' \
+        --return-consumed-capacity TOTAL
+    ```
+    ![](assets/wk1/ddb-put-item.png)
+- Scan the table `aws dynamodb scan --table-name Music --endpoint-url http://localhost:8000`
+    ![](assets/wk1/ddb-scan.png)
