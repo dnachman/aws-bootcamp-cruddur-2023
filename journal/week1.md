@@ -24,7 +24,7 @@
 - This error on my part had me hunting down CORS errors for about an hour:
     ![](assets/wk1/docker-compose-error.png)
 
-## Add DynamoDB local and postgres
+## Add DynamoDB local 
 - Add to compose file
 - Set up our table: 
     ```
@@ -49,3 +49,12 @@
     ![](assets/wk1/ddb-put-item.png)
 - Scan the table `aws dynamodb scan --table-name Music --endpoint-url http://localhost:8000`
     ![](assets/wk1/ddb-scan.png)
+
+## Postgres 
+- Add to compose file
+- Connect via plugin:
+    ![](assets/wk1/postgres-local.png)
+- Connect via command line `psql --host=localhost --user=postgres`
+    ![](assets/wk1/postgres-local-cmd.png)
+- Run query on default database `select * from pg_catalog.pg_tables;`
+    ![](assets/wk1/postgres-tables.png)
