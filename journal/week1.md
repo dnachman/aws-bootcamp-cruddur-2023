@@ -58,3 +58,7 @@
     ![](assets/wk1/postgres-local-cmd.png)
 - Run query on default database `select * from pg_catalog.pg_tables;`
     ![](assets/wk1/postgres-tables.png)
+
+## Notifications feature
+- Updated the `openapi-3.0.yml` file with the new endpoint
+    ![](assets/wk1/openapi-new.png)
