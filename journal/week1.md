@@ -62,3 +62,6 @@
 ## Notifications feature
 - Updated the `openapi-3.0.yml` file with the new endpoint
     ![](assets/wk1/openapi-new.png)
+- Added a new endpoint to the backend flask app and tested:
+    ![](assets/wk1/notif-backend.png)
+- 
