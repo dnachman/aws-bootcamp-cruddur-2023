@@ -18,3 +18,8 @@
     -   Created `Dockerfile`
     -   Added `.dockerignore` to exclude node_modules because I have a layer in the dockerfile that runs `npm install`
     - Run locally, passing in backend url: `docker run -p 3000:3000 -e REACT_APP_BACKEND_URL="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}" -d frontend-react-js`
+- Create the docker-compose.yml and run the application
+    - running inside gitpod:
+    ![](assets/wk1/compose-running.png)
+    - This error on my part had me hunting down CORS errors for about an hour:
+        ![](assets/wk1/docker-compose-error.png)
