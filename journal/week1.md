@@ -64,4 +64,5 @@
     ![](assets/wk1/openapi-new.png)
 - Added a new endpoint to the backend flask app and tested:
     ![](assets/wk1/notif-backend.png)
-- 
+- Added a new route, page, css to the frontend react app
+    ![](assets/wk1/notif-frontend.png)
