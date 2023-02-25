@@ -30,4 +30,4 @@ HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
 
 echo "===> HOSTNAME=$HOSTNAME"
 
-/usr/local/bin/docker-compose --file docker-compose-ec2.yml up -d
+/usr/local/bin/docker-compose --file extra/docker-compose-ec2.yml up -d
