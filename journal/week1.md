@@ -152,3 +152,7 @@ echo "===> HOSTNAME=$HOSTNAME"
 ```
 aws ec2 run-instances --image-id ami-0dfcb1ef8550277af --count 1 --instance-type t2.micro --key-name macbook --security-group-ids sg-00fe555678ac97edd --subnet-id subnet-091ee1653ed375498 --user-data file://extra/user-data-wk1.sh
 ```
+
+-   Here is an example of an instance running and cruddur being served:
+    ![](assets/wk1/ec2-instance.png)
+    ![](assets/wk1/cruddur-on-ec2.png)
