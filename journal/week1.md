@@ -139,7 +139,7 @@ git clone https://github.com/dnachman/aws-bootcamp-cruddur-2023.git
 cd aws-bootcamp-cruddur-2023/extra
 
 # get the public hostname to be used by compose
-HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
+HOSTNAME=`curl -s http://169.254.169.254/latest/meta-data/public-hostname`
 
 echo "===> HOSTNAME=$HOSTNAME"
 
