@@ -77,7 +77,8 @@
 
 ## EC2 (challenge)
 
--   Created an EC2 image with Amazon Linux 2, public IP, open ports 3000, 4567, 22
+-   Created an EC2 image with Amazon Linux 2, public IP, open ports 3000, 4567, 22 in security group:
+    ![](assets/wk1/security-group.png)
 -   Published images to [dockerhub](https://hub.docker.com/u/dnachman) (builds take so long during startup) :
     ![](assets/wk1/dockerhub.png)
 -   Modified docker-compose-ec2.yml to take out unnecessary (for now) services and be able to pass $HOSTNAME
@@ -92,21 +93,19 @@ services:
     image: dnachman/aws-bootcamp-cruddur-2023-backend-flask:latest
     ports:
       - 4567:4567
-    volumes:
-      - ./backend-flask:/backend-flask
+
   frontend-react-js:
     environment:
       REACT_APP_BACKEND_URL: "http://${HOSTNAME}:4567"
     image: dnachman/aws-bootcamp-cruddur-2023-frontend-react-js
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend-react-js:/frontend-react-js
 
 networks:
   internal-network:
     driver: bridge
     name: cruddur
+
 ```
 
 -   Used this User data script:
@@ -130,14 +129,19 @@ docker-compose version
 
 #switch to a regular user
 su - ec2-user
+
+whoami
+
 mkdir ~/work
 cd ~/work
 
 git clone https://github.com/dnachman/aws-bootcamp-cruddur-2023.git
-cd aws-bootcamp-cruddur-2023
+cd aws-bootcamp-cruddur-2023/extra
 
 # get the public hostname to be used by compose
 HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
+
+echo "===> HOSTNAME=$HOSTNAME"
 
 /usr/local/bin/docker-compose --file docker-compose-ec2.yml up -d
 
@@ -146,5 +150,5 @@ HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
 -   eventually i did this from the command line:
 
 ```
-aws ec2 run-instances --image-id ami-0dfcb1ef8550277af --count 1 --instance-type t2.micro --key-name macbook --security-group-ids sg-00fe555678ac97edd --subnet-id subnet-091ee1653ed375498 --user-data file://user-data.sh
+aws ec2 run-instances --image-id ami-0dfcb1ef8550277af --count 1 --instance-type t2.micro --key-name macbook --security-group-ids sg-00fe555678ac97edd --subnet-id subnet-091ee1653ed375498 --user-data file://extra/user-data-wk1.sh
 ```
