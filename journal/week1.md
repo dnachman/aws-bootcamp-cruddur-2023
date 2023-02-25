@@ -79,35 +79,43 @@
 
 -   Created an EC2 image with Amazon Linux 2, public IP, open ports 3000, 4567, 22
 -   Modified docker-compose-ec2.yml to take out unnecessary (for now) services and be able to pass $HOSTNAME
--   Used this init script:
+-   Used this User data script:
 
-    ```
-    yum update -y
-    yum install -y docker git
-    systemctl enable docker
-    systemctl start docker
-    groupadd docker
-    usermod -aG docker ec2-user
-    newgrp docker
+```
+#!/bin/bash
+yum update -y
+yum install -y docker git
+systemctl enable docker
+systemctl start docker
+groupadd docker
+usermod -aG docker ec2-user
+newgrp docker
 
-    # bring in compose
-    curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+# bring in compose
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 
-    chmod +x /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
-    docker-compose version
+docker-compose version
 
-    #switch to a regular user
-    su - ec2-user
-    mkdir ~/work
-    cd ~/work
+#switch to a regular user
+su - ec2-user
+mkdir ~/work
+cd ~/work
 
-    git clone https://github.com/dnachman/aws-bootcamp-cruddur-2023.git
-    cd aws-bootcamp-cruddur-2023
+git clone https://github.com/dnachman/aws-bootcamp-cruddur-2023.git
+cd aws-bootcamp-cruddur-2023
 
-    # get the public hostname to be used by compose
-    HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
+# get the public hostname to be used by compose
+HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
 
-    /usr/local/bin/docker-compose --file docker-compose-ec2.yml up -d
+/usr/local/bin/docker-compose --file docker-compose-ec2.yml up -d
 
-    ```
+```
+
+-   eventually i did this from the command line:
+
+```
+aws ec2 run-instances --image-id ami-0dfcb1ef8550277af --count 1 -
+-instance-type t2.micro --key-name macbook --security-group-ids sg-00fe555678ac97edd --subnet-id subnet-091ee1653ed375498 --user-data file://user-data.sh
+```
