@@ -16,6 +16,9 @@ docker-compose version
 
 #switch to a regular user
 su - ec2-user
+
+whoami
+
 mkdir ~/work
 cd ~/work
 
@@ -24,5 +27,7 @@ cd aws-bootcamp-cruddur-2023
 
 # get the public hostname to be used by compose
 HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
+
+echo "===> HOSTNAME=$HOSTNAME"
 
 /usr/local/bin/docker-compose --file docker-compose-ec2.yml up -d
