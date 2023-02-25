@@ -1,6 +1,7 @@
 # Week 1 — App Containerization
 
-## Set up backend-flask 
+## Set up backend-flask
+
 -   set up venv - added `venv` to `.gitignore`
 -   running locally required loading the requirements.txt dependencies, not just flask:
     ` pip3 install -r requirements.txt`
@@ -11,22 +12,27 @@
 -   Build the image
     `docker build -t backend-flask:latest .`
     ![](assets/wk1/docker-images-backend.png)
-- Run locally: `docker run --rm -p 4567:4567 -d -e FRONTEND_URL -e BACKEND_URL backend-flask:latest`
+-   Run locally: `docker run --rm -p 4567:4567 -d -e FRONTEND_URL -e BACKEND_URL backend-flask:latest`
+
 ## Set up frontend-react-js
+
 -   `npm install`
 -   `cp .env.example .env` (this was a **gotcha** for me the first time)
 -   Created `Dockerfile`
 -   Added `.dockerignore` to exclude node_modules because I have a layer in the dockerfile that runs `npm install`
-- Run locally, passing in backend url: `docker run -p 3000:3000 -e REACT_APP_BACKEND_URL="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}" -d frontend-react-js`
+-   Run locally, passing in backend url: `docker run -p 3000:3000 -e REACT_APP_BACKEND_URL="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}" -d frontend-react-js`
+
 ## Create the docker-compose.yml and run the application
-- running inside gitpod:
-![](assets/wk1/compose-running.png)
-- This error on my part had me hunting down CORS errors for about an hour:
+
+-   running inside gitpod:
+    ![](assets/wk1/compose-running.png)
+-   This error on my part had me hunting down CORS errors for about an hour:
     ![](assets/wk1/docker-compose-error.png)
 
-## Add DynamoDB local 
-- Add to compose file
-- Set up our table: 
+## Add DynamoDB local
+
+-   Add to compose file
+-   Set up our table:
     ```
     aws dynamodb create-table \
         --endpoint-url http://localhost:8000 \
@@ -36,9 +42,9 @@
         --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
         --table-class STANDARD
     ```
-- Check table `aws dynamodb list-tables --endpoint-url http://localhost:8000`
+-   Check table `aws dynamodb list-tables --endpoint-url http://localhost:8000`
     ![](assets/wk1/ddb-list-tables.png)
-- Add an item:
+-   Add an item:
     ```
     aws dynamodb put-item \
         --endpoint-url http://localhost:8000 \
@@ -47,43 +53,61 @@
         --return-consumed-capacity TOTAL
     ```
     ![](assets/wk1/ddb-put-item.png)
-- Scan the table `aws dynamodb scan --table-name Music --endpoint-url http://localhost:8000`
+-   Scan the table `aws dynamodb scan --table-name Music --endpoint-url http://localhost:8000`
     ![](assets/wk1/ddb-scan.png)
 
-## Postgres 
-- Add to compose file
-- Connect via plugin:
+## Postgres
+
+-   Add to compose file
+-   Connect via plugin:
     ![](assets/wk1/postgres-local.png)
-- Connect via command line `psql --host=localhost --user=postgres`
+-   Connect via command line `psql --host=localhost --user=postgres`
     ![](assets/wk1/postgres-local-cmd.png)
-- Run query on default database `select * from pg_catalog.pg_tables;`
+-   Run query on default database `select * from pg_catalog.pg_tables;`
     ![](assets/wk1/postgres-tables.png)
 
 ## Notifications feature
-- Updated the `openapi-3.0.yml` file with the new endpoint
+
+-   Updated the `openapi-3.0.yml` file with the new endpoint
     ![](assets/wk1/openapi-new.png)
-- Added a new endpoint to the backend flask app and tested:
+-   Added a new endpoint to the backend flask app and tested:
     ![](assets/wk1/notif-backend.png)
-- Added a new route, page, css to the frontend react app
+-   Added a new route, page, css to the frontend react app
     ![](assets/wk1/notif-frontend.png)
 
+## EC2 (challenge)
 
-## EC2 (stretch)
+-   Created an EC2 image with Amazon Linux 2, public IP, open ports 3000, 4567, 22
+-   Modified docker-compose-ec2.yml to take out unnecessary (for now) services and be able to pass $HOSTNAME
+-   Used this init script:
 
-- init script:
     ```
-    sudo yum update -y
-    sudo yum install -y docker git
-    sudo systemctl start docker
-    sudo groupadd docker
-    sudo usermod -aG docker ec2-user
+    yum update -y
+    yum install -y docker git
+    systemctl enable docker
+    systemctl start docker
+    groupadd docker
+    usermod -aG docker ec2-user
+    newgrp docker
+
+    # bring in compose
+    curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+    chmod +x /usr/local/bin/docker-compose
+
+    docker-compose version
+
+    #switch to a regular user
     su - ec2-user
-    cd /tmp
+    mkdir ~/work
+    cd ~/work
+
     git clone https://github.com/dnachman/aws-bootcamp-cruddur-2023.git
     cd aws-bootcamp-cruddur-2023
-    # change config files
+
+    # get the public hostname to be used by compose
     HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
 
-    docker compose up
+    /usr/local/bin/docker-compose --file docker-compose-ec2.yml up -d
 
     ```
