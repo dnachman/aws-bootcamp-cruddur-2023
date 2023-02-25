@@ -66,3 +66,24 @@
     ![](assets/wk1/notif-backend.png)
 - Added a new route, page, css to the frontend react app
     ![](assets/wk1/notif-frontend.png)
+
+
+## EC2 (stretch)
+
+- init script:
+    ```
+    sudo yum update -y
+    sudo yum install -y docker git
+    sudo systemctl start docker
+    sudo groupadd docker
+    sudo usermod -aG docker ec2-user
+    su - ec2-user
+    cd /tmp
+    git clone https://github.com/dnachman/aws-bootcamp-cruddur-2023.git
+    cd aws-bootcamp-cruddur-2023
+    # change config files
+    HOSTNAME=$(curl -s http://169.254.169.254/latest/meta-data/public-hostname)
+
+    docker compose up
+
+    ```
