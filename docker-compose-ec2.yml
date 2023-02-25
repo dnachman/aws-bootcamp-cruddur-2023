@@ -7,16 +7,13 @@ services:
     image: dnachman/aws-bootcamp-cruddur-2023-backend-flask:latest
     ports:
       - 4567:4567
-    volumes:
-      - ./backend-flask:/backend-flask
+      
   frontend-react-js:
     environment:
       REACT_APP_BACKEND_URL: "http://${HOSTNAME}:4567"
     image: dnachman/aws-bootcamp-cruddur-2023-frontend-react-js
     ports:
       - "3000:3000"
-    volumes:
-      - ./frontend-react-js:/frontend-react-js
 
 networks:
   internal-network:
