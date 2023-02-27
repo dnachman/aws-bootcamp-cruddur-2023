@@ -21,6 +21,8 @@ aws xray create-group --group-name "Cruddur" --filter-expression "service(\"back
 aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
 - Added the daemon to docker-compose.  
-- Had to make sure app was initialized before xray
+- Had to make sure app was initialized before xray (before I got to that part in the video ;) )
 - Ran and checked traces:
 ![xray traces](assets/wk2/xray-traces.png)
+- Service map:
+![xray service map](assets/wk2/xray-servicemap.png)
