@@ -11,7 +11,7 @@ class HomeActivities:
       now = datetime.now(timezone.utc).astimezone()
       
       # pass value to span
-      span.set_attribute("app.new", now.isoformat())
+      span.set_attribute("app.now", now.isoformat())
 
       results = [{
         'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',

@@ -26,3 +26,9 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ![xray traces](assets/wk2/xray-traces.png)
 - Service map:
 ![xray service map](assets/wk2/xray-servicemap.png)
+
+## Amazon Cloudwatch
+- Added cloudwatch configuration and a logger to backend-flask
+- Updated docker-compose with necessary environment variables
+- Ran app and checked log events:
+![Cloudwatch logs](assets/wk2/cw-logs.png)
