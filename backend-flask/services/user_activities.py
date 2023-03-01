@@ -1,12 +1,29 @@
 from datetime import datetime, timedelta, timezone
+
+from opentelemetry import trace
+from aws_xray_sdk.core import xray_recorder
+
+
+tracer = trace.get_tracer("user.activities")
+
 class UserActivities:
   def run(user_handle):
+
+    segment = xray_recorder.begin_segment("user_activities")
+
     model = {
       'errors': None,
       'data': None
     }
 
     now = datetime.now(timezone.utc).astimezone()
+    
+    # Xray
+    segment_meta = {
+      "now" : now.isoformat(),
+      "hello": "david"
+    }
+    segment.put_metadata('key', segment_meta, 'namespace')
 
     if user_handle == None or len(user_handle) < 1:
       model['errors'] = ['blank_user_handle']
@@ -20,4 +37,5 @@ class UserActivities:
         'expires_at': (now + timedelta(days=31)).isoformat()
       }]
       model['data'] = results
+
     return model

@@ -26,6 +26,11 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ![xray traces](assets/wk2/xray-traces.png)
 - Service map:
 ![xray service map](assets/wk2/xray-servicemap.png)
+- Added a segment around user activities
+- Ran and got additional traces - can see the user_activities node
+![xray traces after segment](assets/wk2/xray-traces-after-segment.png)
+- Able to see segment data and the metadata that was passed in (e.g. hello:david) :
+![xray segment](assets/wk2/xray-segment-metadata.png)
 
 ## Amazon Cloudwatch
 - Added cloudwatch configuration and a logger to backend-flask
