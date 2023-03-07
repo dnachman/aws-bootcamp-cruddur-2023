@@ -37,6 +37,8 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
     ![xray traces after segment](assets/wk2/xray-traces-after-segment.png)
 -   Able to see segment data and the metadata that was passed in (e.g. hello:david) :
     ![xray segment](assets/wk2/xray-segment-metadata.png)
+- Added sub-segment capture to the code and able to see the sub segments:
+    ![mock data](assets/wk2/xray-subseg-mock-data.png)
 
 ## Amazon Cloudwatch
 
