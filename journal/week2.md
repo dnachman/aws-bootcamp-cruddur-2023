@@ -52,3 +52,5 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 - Set the `ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"` in the docker-compose.yml
 - Check rollbar for logs from the application:
     ![rollbar items](assets/wk2/rollbar-items.png)
+- Caused an intentional error in the application and saw it logged into Rollbar:
+    ![rollbar error](assets/wk2/rollbar-error.png)
