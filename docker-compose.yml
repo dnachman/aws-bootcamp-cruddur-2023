@@ -13,6 +13,7 @@ services:
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
       AWS_REGION: "us-east-1"
       AWS_DEFAULT_REGION: "us-east-1"
+      ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
     build: ./backend-flask
     ports:
       - 4567:4567

@@ -46,3 +46,9 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 -   Updated docker-compose with necessary environment variables
 -   Ran app and checked log events:
     ![Cloudwatch logs](assets/wk2/cw-logs.png)
+
+## Rollbar
+- Added rollbar dependencies and initialization code to the backend app
+- Set the `ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"` in the docker-compose.yml
+- Check rollbar for logs from the application:
+    ![rollbar items](assets/wk2/rollbar-items.png)
