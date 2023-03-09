@@ -24,8 +24,8 @@ services:
       REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       REACT_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_5UqdQuyfI"
-      REACT_APP_CLIENT_ID: "55la82rjm58a3fler88clffskf"
+      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_Ynp7ieLpL"
+      REACT_APP_CLIENT_ID: "77b6n92j77dtiq8f6l2lm7mbb0"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
@@ -42,33 +42,33 @@ services:
     ports:
       - 2000:2000/udp
 
-  db:
-    image: postgres:13-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-    ports:
-      - '5432:5432'
-    volumes:
-      - db:/var/lib/postgresql/data
+#   db:
+#     image: postgres:13-alpine
+#     restart: always
+#     environment:
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=password
+#     ports:
+#       - '5432:5432'
+#     volumes:
+#       - db:/var/lib/postgresql/data
 
-  dynamodb-local:
-    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
-    # We needed to add user:root to get this working.
-    user: root
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-    image: "amazon/dynamodb-local:latest"
-    container_name: dynamodb-local
-    ports:
-      - "8000:8000"
-    volumes:
-      - "./docker/dynamodb:/home/dynamodblocal/data"
-    working_dir: /home/dynamodblocal
+#   dynamodb-local:
+#     # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+#     # We needed to add user:root to get this working.
+#     user: root
+#     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+#     image: "amazon/dynamodb-local:latest"
+#     container_name: dynamodb-local
+#     ports:
+#       - "8000:8000"
+#     volumes:
+#       - "./docker/dynamodb:/home/dynamodblocal/data"
+#     working_dir: /home/dynamodblocal
 
-volumes:
-  db:
-    driver: local
+# volumes:
+#   db:
+#     driver: local
 
 networks:
   internal-network:

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
 
 export default function SignupPage() {
-  // Username is Eamil
+  // Username is Email
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [username, setUsername] = React.useState("");
@@ -21,10 +21,10 @@ export default function SignupPage() {
     try {
       const { user } = await Auth.signUp({
         username: email,
-        password: password,
+        password,
         attributes: {
-          name: name,
-          email: email,
+          email,
+          name,
           preferred_username: username,
         },
         autoSignIn: {
