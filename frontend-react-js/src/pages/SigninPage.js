@@ -26,11 +26,13 @@ export default function SigninPage() {
         })
         .catch((err) => {
           console.log("Error signing in! ", err);
+          if (err.code === "UserNotConfirmedException") {
+            window.location.href = "/confirm";
+          }
+          setCognitoErrors(err.message);
         });
     } catch (error) {
-      if (error.code === "UserNotConfirmedException") {
-        window.location.href = "/confirm";
-      }
+      console.log("Error caught signing in! ", error);
       setCognitoErrors(error.message);
     }
     return false;
