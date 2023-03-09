@@ -14,6 +14,8 @@ from services.create_message import *
 from services.show_activity import *
 from services.notifications_activities import *
 
+from lib.cognito_token_verification import CognitoTokenVerification
+
 # honeycomb / otel
 from opentelemetry import trace
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
@@ -37,6 +39,12 @@ import rollbar.contrib.flask
 from flask import got_request_exception
 
 app = Flask(__name__)
+
+cognito_token_verification = CognitoTokenVerification(
+  user_pool_id= os.getenv('AWS_COGNITO_USER_POOL_ID'),
+  user_pool_client_id = os.getenv('AWS_COGNITO_USER_POOL_CLIENT_ID'),
+  region = os.getenv('AWS_DEFAULT_REGION')
+)
 
 # cloudwatch
 # Configuring Logger to Use CloudWatch

@@ -35,3 +35,5 @@
   ```
 
   ![password restyle](assets/wk3/recover-restyle.png)
+
+## Backend JWT validation
