@@ -63,7 +63,7 @@ tracer = trace.get_tracer(__name__)
 # honeycomb
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
-
+ 
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
 origins = [frontend, backend]
@@ -71,8 +71,10 @@ origins = [frontend, backend]
 cors = CORS(
   app, 
   resources={r"/api/*": {"origins": origins}},
-  expose_headers="location,link",
-  allow_headers="content-type,if-modified-since",
+  headers=['Content-Type', 'Authorization'],
+  expose_headers="Authorization",
+  # allow_headers="content-type,if-modified-since,authorization",
+  allow_headers=['Content-Type', 'If-Modified-Since', 'Authorization'],
   methods="OPTIONS,GET,HEAD,POST"
 )
 
