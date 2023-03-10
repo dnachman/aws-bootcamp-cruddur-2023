@@ -37,3 +37,11 @@
   ![password restyle](assets/wk3/recover-restyle.png)
 
 ## Backend JWT validation
+- Followed the long and winding road to implement JWT backend validation in Flask
+- Hit an issue with the verification library not seeing the `jose` library, so added `python-jose` to my `requirements.txt` (this may have been a gitpod workspace issue, will investigate next time i rebuild the workspace)
+- Got it working and can see the claims:
+  ![claims](assets/wk3/claims.png)
+- Showing the authenticated user the extra post in home from Lore:
+  ![auth extra](assets/wk3/home-auth-extra-post.png)
+- Once logged out, the non-authenticated user sees the normal home list:
+  ![no extra](assets/wk3/home-no-extra.png)

@@ -155,13 +155,13 @@ def data_home():
     claims = cognito_jwt_token.verify(access_token)
     app.logger.debug('claims %s', claims)
     app.logger.debug('claims[username] %s', claims['username'])
-
+    data = HomeActivities.run(claims['username'])
   except TokenVerifyError as e:
     # unauthenticated
     app.logger.debug("unauthenticated: %s", e)
-    return "Authentication Verification Error", 401
+    data = HomeActivities.run()
   
-  data = HomeActivities.run(LOGGER)
+  
   return data, 200
 
 @app.route("/api/activities/notifications", methods=['GET'])
