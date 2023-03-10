@@ -17,6 +17,11 @@ tasks:
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
+    - ms-azuretools.vscode-docker
+
+    - esbenp.prettier-vscode
+
+    - dbaeumer.vscode-eslint
 
 ports:
   - name: frontend
