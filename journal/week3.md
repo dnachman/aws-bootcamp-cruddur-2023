@@ -37,6 +37,7 @@
   ![password restyle](assets/wk3/recover-restyle.png)
 
 ## Backend JWT validation
+
 - Followed the long and winding road to implement JWT backend validation in Flask
 - Hit an issue with the verification library not seeing the `jose` library, so added `python-jose` to my `requirements.txt` (this may have been a gitpod workspace issue, will investigate next time i rebuild the workspace)
 - Got it working and can see the claims:
@@ -45,3 +46,12 @@
   ![auth extra](assets/wk3/home-auth-extra-post.png)
 - Once logged out, the non-authenticated user sees the normal home list:
   ![no extra](assets/wk3/home-no-extra.png)
+
+## Extra Stuff
+
+- Found other `[TODO]` Authentication tags in the code and updated them:
+  - MessageGroupPage - also fixed DesktopNavigation to highlight when active, disabled es-lint warning for unused popped variable
+  - MessageGroupsPage - also fixed DesktopNavigation to highlight when active, disabled es-lint warning for unused popped variable
+  - NotificationsFeedPage
+  - UserFeedPage
+- Cleared some other es-lint warnings
