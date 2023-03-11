@@ -20,3 +20,14 @@ https://code.visualstudio.com/docs/devcontainers/containers#_sharing-git-credent
 ssh-add ./id_rsa
 
 See article here: https://www.linuxtek.ca/2023/03/10/aws-cloud-project-bootcamp-solving-the-cde-problem/
+
+Set these variables in the terminal:
+```
+export HONEYCOMB_API_KEY=""
+export HONEYCOMB_SERVICE_NAME="backend-flask"
+export ROLLBAR_ACCESS_TOKEN=""
+
+export AWS_DEFAULT_REGION="us-east-1"
+export AWS_SECRET_ACCESS_KEY=""
+export AWS_ACCESS_KEY_ID=""
+```
