@@ -4,7 +4,7 @@ aws rds create-db-instance \
   --engine postgres \
   --engine-version  14.6 \
   --master-username cruddurroot \
-  --master-user-password sup3rsecr3tp4ssword! \
+  --master-user-password CHANGE_ME \
   --allocated-storage 20 \
   --availability-zone us-east-1a \
   --backup-retention-period 0 \
