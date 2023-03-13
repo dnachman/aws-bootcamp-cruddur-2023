@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+# pull cruddur out of connection_url since we can't connect to db we're dropping
+NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
+psql $NO_DB_CONNECTION_URL -c "DROP DATABASE cruddur;"

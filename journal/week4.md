@@ -37,3 +37,8 @@ aws rds create-db-instance \
 - Load the extension from the schema file: `psql cruddur < db/schema.sql -h localhost -U postgres`
   ![create extension](assets/wk4/create-extension.png)
 - Set up connection url locally: `export CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"`
+- Create scripts :
+  - db-create
+  - db-drop
+  - db-schema-load
+- Add schema for tables
