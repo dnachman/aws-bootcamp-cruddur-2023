@@ -48,3 +48,41 @@ aws rds create-db-instance \
 - added functions to wrap query, modified home activities to return data from database:
   ![home from database](assets/wk4/home-from-db.png)
 - Connected to RDS instance, set up database and updated security group
+
+## Created the Cognito post-confirmation hook
+
+- Created lambda function with a lambda layer for the pg drivers from https://github.com/jetbridge/psycopg2-lambda-layer
+- Updated the auto-generated role with a Customer Inline policy to allow it to access the RDS instance:
+  ```
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "ec2:DescribeNetworkInterfaces",
+                    "ec2:CreateNetworkInterface",
+                    "ec2:DeleteNetworkInterface",
+                    "ec2:DescribeInstances",
+                    "ec2:AttachNetworkInterface"
+                ],
+                "Resource": "*"
+            }
+        ]
+    }
+  ```
+- Created a lambda test event json to ease steps to debug the code (so i could get the sql correct):
+  ```
+    {
+      "request": {
+        "userAttributes": {
+          "name": "David",
+          "email": "test@nachman.org",
+          "preferred_username": "testy",
+          "sub": "rand-omch-awer"
+        }
+      }
+    }
+  ```
+- Got it working:
+  ![DB users after cognito hook](assets/wk4/db-users-post-conf.png)
