@@ -42,3 +42,8 @@ aws rds create-db-instance \
   - db-drop
   - db-schema-load
 - Add schema for tables
+
+## Update app to use the postgres db
+
+- added functions to wrap query, modified home activities to return data from database:
+  ![home from database](assets/wk4/home-from-db.png)

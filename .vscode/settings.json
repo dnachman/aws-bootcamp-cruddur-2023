@@ -8,6 +8,15 @@
             "name": "localhost",
             "username": "postgres",
             "database": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "localhost - cruddur",
+            "database": "cruddur",
+            "username": "postgres"
         }
     ]
 }

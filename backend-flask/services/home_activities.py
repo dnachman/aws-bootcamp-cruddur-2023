@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from opentelemetry import trace
-from lib.db import pool
+from lib.db import pool, query_wrap_array
 
 tracer = trace.get_tracer("home.activities")
 
@@ -16,15 +16,29 @@ class HomeActivities:
       # pass value to span
       span.set_attribute("app.now", now.isoformat())
 
-      sql = """
-        select * from public.actvities
-      """
+      sql = query_wrap_array("""
+        SELECT
+          activities.uuid,
+          users.display_name,
+          users.handle,
+          activities.message,
+          activities.replies_count,
+          activities.reposts_count,
+          activities.likes_count,
+          activities.reply_to_activity_uuid,
+          activities.expires_at,
+          activities.created_at
+        FROM public.activities
+        LEFT JOIN public.users ON users.uuid = activities.user_uuid
+        ORDER BY activities.created_at DESC
+        """)
 
       with pool.connection() as conn:
         with conn.cursor() as cur:
           cur.execute(sql)
           json = cur.fetchone()
-      return json[0]
 
-      span.set_attribute("app.result_length", len(results))
-      return results
+      span.set_attribute("app.result_length", len(json[0]))
+      
+
+      return json[0]
