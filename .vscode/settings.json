@@ -17,6 +17,15 @@
             "name": "localhost - cruddur",
             "database": "cruddur",
             "username": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "cruddur-db-instance.c7pvyfu4hgol.us-east-1.rds.amazonaws.com",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "cruddur - RDS",
+            "username": "cruddurroot",
+            "database": "cruddur"
         }
     ]
 }

@@ -47,3 +47,4 @@ aws rds create-db-instance \
 
 - added functions to wrap query, modified home activities to return data from database:
   ![home from database](assets/wk4/home-from-db.png)
+- Connected to RDS instance, set up database and updated security group
