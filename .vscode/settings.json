@@ -27,5 +27,8 @@
             "username": "cruddurroot",
             "database": "cruddur"
         }
-    ]
+    ],
+    "[sql]": {
+        "editor.formatOnSave": false
+    }
 }
