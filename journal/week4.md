@@ -29,7 +29,7 @@ aws rds create-db-instance \
 
 ![rds create](assets/wk4/rds-created.png)
 
-## Working with Postrgres
+## Working with Postgres
 
 - Connect to local instance: `psql -U postgres --host localhost`
 - Create the database in the client: `CREATE database cruddur;`
