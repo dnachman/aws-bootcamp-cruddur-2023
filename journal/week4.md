@@ -86,3 +86,10 @@ aws rds create-db-instance \
   ```
 - Got it working:
   ![DB users after cognito hook](assets/wk4/db-users-post-conf.png)
+
+## Create new activities in db
+
+- refactor `lib\db.py` to be a python class and support using sql files from filesystem
+- added sql files for activities
+- refactor `home_activities.py` now that Db is a python class
+- implement `create_activity.py` to use the database
