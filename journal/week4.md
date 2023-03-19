@@ -92,4 +92,5 @@ aws rds create-db-instance \
 - refactor `lib\db.py` to be a python class and support using sql files from filesystem
 - added sql files for activities
 - refactor `home_activities.py` now that Db is a python class
-- implement `create_activity.py` to use the database
+- implement `create_activity.py` to use the database. (user_handle is hard coded in `app.py` so that will have to be fixed for current logged in user):
+  ![activity added](assets/wk4/activity-added.png)
