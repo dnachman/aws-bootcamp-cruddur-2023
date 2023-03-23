@@ -1,0 +1,3 @@
+#!/bin/bash
+
+aws rds start-db-instance --db-instance-identifier cruddur-db-instance
