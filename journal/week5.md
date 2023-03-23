@@ -2,7 +2,8 @@
 
 ## DynamoDb
 
-- Added scripts
+- Reorganized the bin directories
+- Added scripts to create ddb, drop etc as prep for deeper work
 
 ## Other
 
