@@ -126,5 +126,14 @@ class Db:
           "{}"
         else:
           return json[0]
+        
+  # query a single value
+  def query_value(self, sql, params={}):
+    self.print_sql('value',sql, params)
+    with self.pool.connection() as conn:
+      with conn.cursor() as cur:
+        cur.execute(sql, params)
+        json = cur.fetchone()
+        return json[0]
 
 db = Db()

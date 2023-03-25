@@ -23,6 +23,9 @@ export default function MessageGroupPage() {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/message_groups`;
       const res = await fetch(backend_url, {
         method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
       });
       let resJson = await res.json();
       if (res.status === 200) {
@@ -79,7 +82,7 @@ export default function MessageGroupPage() {
     loadMessageGroupsData();
     loadMessageGroupData();
     checkAuth();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <article>
