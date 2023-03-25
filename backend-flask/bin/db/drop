@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="db-drop"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
 if [ "$1" = "prod" ]; then
   echo "Running in production mode"
   URL=$PROD_CONNECTION_URL
@@ -9,4 +14,4 @@ fi
 
 # pull cruddur out of connection_url since we can't connect to db we're dropping
 NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$URL")
-psql $NO_DB_CONNECTION_URL -c "DROP DATABASE cruddur;"
+psql $NO_DB_CONNECTION_URL -c "DROP DATABASE IF EXISTS cruddur;"
