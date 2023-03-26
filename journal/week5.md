@@ -16,6 +16,12 @@
 - Implement `CheckAuth.js` in the frontend project
 - Modify `bin/ddb/seed` to have my username instead of **andrewbrown** so I could see the results
   ![](assets/wk5/messages-loading.png)
+- Rework frontend MessageGroups, etc and the `messages.py`, `message_groups.py`, etc to get the message listing to display correctly bassed on `message_group_uuid`
+  ![message group listing](assets/wk5/messages-listing.png)
+
+- This is an image of the DynamoDb modeling and a row representation from the class:
+  ![ddb model](assets/wk5/ddb-model.png)
+  ![ddb model](assets/wk5/ddb-rows.png)
 
 ## Other
 
