@@ -14,6 +14,8 @@
     ![updated postgres](assets/wk5/updated-postgres.png)
 
 - Implement `CheckAuth.js` in the frontend project
+- Modify `bin/ddb/seed` to have my username instead of **andrewbrown** so I could see the results
+  ![](assets/wk5/messages-loading.png)
 
 ## Other
 
