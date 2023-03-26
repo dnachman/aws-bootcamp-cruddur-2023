@@ -3,8 +3,7 @@ import React from "react";
 
 import DesktopNavigation from "../components/DesktopNavigation";
 import MessageGroupFeed from "../components/MessageGroupFeed";
-
-import { Auth } from "aws-amplify";
+import checkAuth from "../lib/CheckAuth";
 
 export default function MessageGroupsPage() {
   const [messageGroups, setMessageGroups] = React.useState([]);
@@ -33,31 +32,13 @@ export default function MessageGroupsPage() {
     }
   };
 
-  const checkAuth = async () => {
-    console.log("checkAuth");
-    Auth.currentAuthenticatedUser({
-      bypassCache: false,
-    })
-      .then((user) => {
-        console.log("user", user);
-        return Auth.currentAuthenticatedUser();
-      })
-      .then((cognito_user) => {
-        setUser({
-          display_name: cognito_user.attributes.name,
-          handle: cognito_user.attributes.preferred_username,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-
   React.useEffect(() => {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
     loadData();
-    checkAuth();
+    checkAuth(setUser);
   }, []);
   return (
     <article>
