@@ -18,6 +18,8 @@
   ![](assets/wk5/messages-loading.png)
 - Rework frontend MessageGroups, etc and the `messages.py`, `message_groups.py`, etc to get the message listing to display correctly bassed on `message_group_uuid`
   ![message group listing](assets/wk5/messages-listing.png)
+- Complete the `MessageForm.js` compoonent and `message_groups.py` and sql to allow posting of messages to a conversation:
+  ![post message](assets/wk5/post-message-working.png)
 
 - This is an image of the DynamoDb modeling and a row representation from the class:
   ![ddb model](assets/wk5/ddb-model.png)
