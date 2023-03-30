@@ -20,6 +20,8 @@
   ![message group listing](assets/wk5/messages-listing.png)
 - Complete the `MessageForm.js` compoonent and `message_groups.py` and sql to allow posting of messages to a conversation:
   ![post message](assets/wk5/post-message-working.png)
+- Complete the journey to create new messages with `MessageGroupNewItem.js`, `MessageGroupNewPage.js` and changes in the backend to support it:
+  ![new message working](assets/wk5/new-messages-working.png)
 
 - This is an image of the DynamoDb modeling and a row representation from the class:
   ![ddb model](assets/wk5/ddb-model.png)
