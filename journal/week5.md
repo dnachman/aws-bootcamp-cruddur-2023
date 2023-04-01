@@ -27,6 +27,41 @@
   ![ddb model](assets/wk5/ddb-model.png)
   ![ddb model](assets/wk5/ddb-rows.png)
 
+## Dynamodb Streams
+
+- Update `schema-load` script to add Global Secondary index for `message_group_uuid`
+- Create the production table and turn on DDB streams to capture 'new image' attributes
+- Create a VPC endpoint for dynamodb
+- Create a lambda to handle the DDB stream
+  - Connect it to the VPC
+  - Create a role that allows update to ddb & attach `AWSLambdaInvocation-DynamoDB` policy
+  - Create an inline policy for ddb update scoped to our table:
+    ```
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "VisualEditor0",
+                "Effect": "Allow",
+                "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:Scan",
+                    "dynamodb:Query"
+                ],
+                "Resource": [
+                    "arn:aws:dynamodb:us-east-1:XXXX:table/cruddur-messages/index/message-group-sk-index",
+                    "arn:aws:dynamodb:us-east-1:XXXX:table/cruddur-messages"
+                ]
+            }
+        ]
+    }
+    ```
+- Create trigger in ddb to send to the lambda
+- Testing it we can see the messages are making it into the ddb and updated:
+  ![messages](assets/wk5/messages-after-streams.png)
+  ![dynamo records](assets/wk5/ddb-records.png)
+
 ## Other
 
 - Added `bin/rds-start-instance` and `bin/rds-stop-instance` to backend project to help with managing RDS
