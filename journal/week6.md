@@ -121,3 +121,60 @@ aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/AWSXRayDaemonWri
 ```
 
 ![CruddurTaskRole](assets/wk6/CruddurTaskRole.png)
+
+## Set up ECS service
+
+Create task definition `aws/task-definitions/backend-flask.json`
+
+Register task definition `aws ecs register-task-definition --cli-input-json file://aws/task-definitions/backend-flask.json`
+![backend flask](assets/wk6/task-def-backend-flask.png)
+
+Grab some VPC environment variables
+
+```sh
+export DEFAULT_VPC_ID=$(aws ec2 describe-vpcs \
+--filters "Name=isDefault, Values=true" \
+--query "Vpcs[0].VpcId" \
+--output text)
+echo $DEFAULT_VPC_ID
+
+export DEFAULT_SUBNET_IDS=$(aws ec2 describe-subnets  \
+ --filters Name=vpc-id,Values=$DEFAULT_VPC_ID \
+ --query 'Subnets[*].SubnetId' \
+ --output json | jq -r 'join(",")')
+echo $DEFAULT_SUBNET_IDS
+```
+
+Set up security group for service
+
+```sh
+export CRUD_SERVICE_SG=$(aws ec2 create-security-group \
+  --group-name "crud-srv-sg" \
+  --description "Security group for Cruddur services on ECS" \
+  --vpc-id $DEFAULT_VPC_ID \
+  --query "GroupId" --output text)
+echo $CRUD_SERVICE_SG
+
+aws ec2 authorize-security-group-ingress \
+  --group-id $CRUD_SERVICE_SG \
+  --protocol tcp \
+  --port 80 \
+  --cidr 0.0.0.0/0
+
+export CRUD_SERVICE_SG=$(aws ec2 describe-security-groups \
+  --filters Name=group-name,Values=crud-srv-sg \
+  --query 'SecurityGroups[*].GroupId' \
+  --output text)
+```
+
+### Fix platform architecture
+
+The following error was caused because I'm developing on a Mac (ARM) and by default Fargate is using x86/AMD: `exec /usr/local/bin/python3: exec format error`
+I updated the `aws/task-definitions/backend-flask.json` to specify the architecture as ARM and use Fargate ARM instances
+
+```
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": "ARM64"
+  },
+```

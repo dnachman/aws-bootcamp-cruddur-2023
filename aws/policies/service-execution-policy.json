@@ -2,6 +2,20 @@
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Sid": "other-perms",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "log:CreateLogStream",
+        "log:PutLogEvents"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ssm-perms",
       "Effect": "Allow",
       "Action": [
         "ssm:GetParameters",
