@@ -8,10 +8,6 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
-  "runtimePlatform": {
-    "operatingSystemFamily": "LINUX",
-    "cpuArchitecture": "ARM64"
-  },
   "containerDefinitions": [
     {
       "name": "backend-flask",
