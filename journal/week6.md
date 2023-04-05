@@ -84,7 +84,7 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_
 
 ### Create task role
 
-```
+```sh
 aws iam create-role \
     --role-name CruddurTaskRole \
     --assume-role-policy-document "{
@@ -158,13 +158,32 @@ echo $CRUD_SERVICE_SG
 aws ec2 authorize-security-group-ingress \
   --group-id $CRUD_SERVICE_SG \
   --protocol tcp \
-  --port 80 \
+  --port 4567 \
   --cidr 0.0.0.0/0
 
 export CRUD_SERVICE_SG=$(aws ec2 describe-security-groups \
   --filters Name=group-name,Values=crud-srv-sg \
   --query 'SecurityGroups[*].GroupId' \
   --output text)
+```
+
+## Debugging containers on Fargate
+
+```
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+sudo dpkg -i session-manager-plugin.deb
+```
+
+Connect via systems manager:
+
+```sh
+aws ecs execute-command  \
+--region $AWS_DEFAULT_REGION \
+--cluster cruddur \
+--task 219167f5c78a4c03a26d4adf130d8403 \
+--container backend-flask \
+--command "/bin/bash" \
+--interactive
 ```
 
 ### Fix platform architecture
