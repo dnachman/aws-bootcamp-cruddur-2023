@@ -204,6 +204,29 @@ Validate it worked on the ECS instance command line (failure before the SG chang
 ![ecs-rds-test](assets/wk6/rds-test-before-after-sg-change.png)
 
 
+## Turn on service discovery
+Deleted and recreated the service through the console with service discovery turned on
+![Service Connect](assets/wk6/add-service-connect.png)
+
+Needed to update the `CruddurServiceExecutionRole` with the `logs:CreateLogGroup` permissions
+![ExecutionPolicy](assets/wk6/cruddurserviceexecutionpolicy-createloggroup.png)
+
+Recreate it using the `service-backend-flask.json` by adding this block:
+```json
+"serviceConnectConfiguration": {
+    "enabled": true,
+    "namespace": "cruddur",
+    "services": [
+      {
+        "portName": "backend-flask",
+        "discoveryName": "backend-flask",
+        "clientAliases": [{"port": 4567}]
+      }
+    ]
+  },
+  ```
+
+
 ## Fix platform architecture if building on Mac
 
 The following error was caused because I'm developing on a Mac (ARM) and by default Fargate is using x86/AMD: `exec /usr/local/bin/python3: exec format error`
