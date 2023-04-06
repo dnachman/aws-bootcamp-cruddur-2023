@@ -167,12 +167,19 @@ export CRUD_SERVICE_SG=$(aws ec2 describe-security-groups \
   --output text)
 ```
 
+Create the service definition file at `aws/json/service-backend-flask.json`
+
+Create the service: `aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json`
+
 ## Debugging containers on Fargate
 
+Download and install the session-manager-plugin on development machine:
 ```
 curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
 sudo dpkg -i session-manager-plugin.deb
 ```
+
+Ensure the service definition contains a line to enable execute `"enableExecuteCommand": true`
 
 Connect via systems manager:
 
@@ -186,7 +193,18 @@ aws ecs execute-command  \
 --interactive
 ```
 
-### Fix platform architecture
+## Fix security group for backend-flask
+Once logged into the ECS instance, we can see that the database connection is not successful (you can also see this in CloudWatch logs)
+
+Update the default security group (which is what the RDS is using) to allow for access from the ECS instance (`crud-srv-sg`)
+
+![security-group](assets/wk6/inbound-rules-backend-to-pgsql.png)
+
+Validate it worked on the ECS instance command line (failure before the SG change, and success after):
+![ecs-rds-test](assets/wk6/rds-test-before-after-sg-change.png)
+
+
+## Fix platform architecture if building on Mac
 
 The following error was caused because I'm developing on a Mac (ARM) and by default Fargate is using x86/AMD: `exec /usr/local/bin/python3: exec format error`
 I updated the `aws/task-definitions/backend-flask.json` to specify the architecture as ARM and use Fargate ARM instances
