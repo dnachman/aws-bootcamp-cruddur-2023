@@ -174,6 +174,7 @@ Create the service: `aws ecs create-service --cli-input-json file://aws/json/ser
 ## Debugging containers on Fargate
 
 Download and install the session-manager-plugin on development machine:
+
 ```
 curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
 sudo dpkg -i session-manager-plugin.deb
@@ -194,6 +195,7 @@ aws ecs execute-command  \
 ```
 
 ## Fix security group for backend-flask
+
 Once logged into the ECS instance, we can see that the database connection is not successful (you can also see this in CloudWatch logs)
 
 Update the default security group (which is what the RDS is using) to allow for access from the ECS instance (`crud-srv-sg`)
@@ -203,8 +205,8 @@ Update the default security group (which is what the RDS is using) to allow for 
 Validate it worked on the ECS instance command line (failure before the SG change, and success after):
 ![ecs-rds-test](assets/wk6/rds-test-before-after-sg-change.png)
 
-
 ## Turn on service discovery
+
 Deleted and recreated the service through the console with service discovery turned on
 ![Service Connect](assets/wk6/add-service-connect.png)
 
@@ -212,6 +214,7 @@ Needed to update the `CruddurServiceExecutionRole` with the `logs:CreateLogGroup
 ![ExecutionPolicy](assets/wk6/cruddurserviceexecutionpolicy-createloggroup.png)
 
 Recreate it using the `service-backend-flask.json` by adding this block:
+
 ```json
 "serviceConnectConfiguration": {
     "enabled": true,
@@ -224,8 +227,29 @@ Recreate it using the `service-backend-flask.json` by adding this block:
       }
     ]
   },
-  ```
+```
 
+## Create an Application Load Balancer
+
+Create an ALB in the console called `cruddur-alb`
+Set up a new security group listening on 80 and 443 : `cruddur-alb-sg`
+Alter the `crud-srv-sg` to allow traffic from `cruddur-alb-sg` to port 4567
+Create a target group to IP Addresses called `cruddur-backend-flask-tg`
+Create a target group to IP Addresses called `cruddur-frontend-react-js-tg`
+Complete setup of `cruddur-alb` to point to the `cruddur-frontend-react-js-tg`
+
+Update `service-backend-flask.json` with load balancer configuration:
+
+```
+"loadBalancers": [
+    {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:774431287401:targetgroup/cruddur-backend-flask-tg/b185a2539f9292dc",
+      "loadBalancerName": "arn:aws:elasticloadbalancing:us-east-1:774431287401:loadbalancer/app/cruddur-alb/5d0222bb7e3c0420",
+      "containerName": "backend-flask",
+      "containerPort": 4567
+    }
+  ],
+```
 
 ## Fix platform architecture if building on Mac
 
