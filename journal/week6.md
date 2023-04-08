@@ -49,7 +49,7 @@
 - Build the image
   ```
   docker build \
-  --build-arg REACT_APP_BACKEND_URL="http://cruddur-alb-1429589472.us-east-1.elb.amazonaws.com:4567" \
+  --build-arg REACT_APP_BACKEND_URL="https://api.cruddur.n5n.org" \
   --build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
   --build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
   --build-arg REACT_APP_AWS_USER_POOLS_ID="us-east-1_Ynp7ieLpL" \
@@ -270,6 +270,21 @@ Update the ECS service security group to include port 3000
 
 Test cruddur
 ![cruddur-on-alb](assets/wk6/cruddur-on-alb.png)
+
+## Host at our own domain
+
+Configure ALB rules for listeners
+![listeners](assets/wk6/https-listener.png)
+
+Set up DNS to route to our ALB
+![route53](assets/wk6/route53.png)
+
+Create certificates in ACM and set up ALB to use it
+![certs](assets/wk6/certs.png)
+![listeners](assets/wk6/alb-listeners.png)
+
+Check the final result
+![cruddur-at-domain](assets/wk6/cruddur-at-domain.png)
 
 ## Fix platform architecture if building on Mac
 
