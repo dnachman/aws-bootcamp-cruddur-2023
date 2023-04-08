@@ -1,3 +1,4 @@
 docker/dynamodb
 extra/aws-cpb.sh
 session-manager-plugin.deb
+frontend-react-js/build/*

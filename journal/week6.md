@@ -234,8 +234,10 @@ Recreate it using the `service-backend-flask.json` by adding this block:
 Create an ALB in the console called `cruddur-alb`
 Set up a new security group listening on 80 and 443 : `cruddur-alb-sg`
 Alter the `crud-srv-sg` to allow traffic from `cruddur-alb-sg` to port 4567
+![cruddur-alb](assets/wk6/cruddur-alb.png)
 Create a target group to IP Addresses called `cruddur-backend-flask-tg`
 Create a target group to IP Addresses called `cruddur-frontend-react-js-tg`
+![backend-tg](assets/wk6/cruddur-backend-flask-tg.png)
 Complete setup of `cruddur-alb` to point to the `cruddur-frontend-react-js-tg`
 
 Update `service-backend-flask.json` with load balancer configuration:
@@ -250,6 +252,9 @@ Update `service-backend-flask.json` with load balancer configuration:
     }
   ],
 ```
+
+Test the load balancer:
+![alb-backend](assets/wk6/alb-backend.png)
 
 ## Fix platform architecture if building on Mac
 
