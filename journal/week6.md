@@ -49,7 +49,7 @@
 - Build the image
   ```
   docker build \
-  --build-arg REACT_APP_BACKEND_URL="https://4567-$GITPOD_WORKSPACE_ID.$GITPOD_WORKSPACE_CLUSTER_HOST" \
+  --build-arg REACT_APP_BACKEND_URL="http://cruddur-alb-1429589472.us-east-1.elb.amazonaws.com:4567" \
   --build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
   --build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
   --build-arg REACT_APP_AWS_USER_POOLS_ID="us-east-1_Ynp7ieLpL" \
@@ -254,7 +254,22 @@ Update `service-backend-flask.json` with load balancer configuration:
 ```
 
 Test the load balancer:
+
 ![alb-backend](assets/wk6/alb-backend.png)
+
+## Load the frontend service
+
+Create task definition `aws/task-definitions/frontend-react-js.json`
+
+Register task definition `aws ecs register-task-definition --cli-input-json file://aws/task-definitions/frontend-react-js.json`
+
+Create the service `aws ecs create-service --cli-input-json file://aws/json/service-frontend-react-js.json`
+
+Update the ECS service security group to include port 3000
+![update-sg](assets/wk6/update-sg.png)
+
+Test cruddur
+![cruddur-on-alb](assets/wk6/cruddur-on-alb.png)
 
 ## Fix platform architecture if building on Mac
 
