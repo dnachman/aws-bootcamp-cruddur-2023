@@ -297,3 +297,11 @@ I updated the `aws/task-definitions/backend-flask.json` to specify the architect
     "cpuArchitecture": "ARM64"
   },
 ```
+
+## Flask security
+
+Update `cruddur-alb-sg` security group to limit to my IP only
+Create `Dockerfile.prod` in backend directory and remove debugging/reload options
+Rebuilt the image, tag it, and upload it to ECR
+![backend-flask-prod](assets/wk6/backend-flask-prod.png)
+Force an update to the `backend-flask` service to pick up the new image
