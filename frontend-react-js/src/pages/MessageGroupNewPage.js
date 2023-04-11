@@ -6,7 +6,7 @@ import DesktopNavigation from "../components/DesktopNavigation";
 import MessageGroupFeed from "../components/MessageGroupFeed";
 import MessagesFeed from "../components/MessageFeed";
 import MessagesForm from "../components/MessageForm";
-import checkAuth from "../lib/CheckAuth";
+import { checkAuth, getAccessToken } from "../lib/CheckAuth";
 
 export default function MessageGroupPage() {
   const [otherUser, setOtherUser] = React.useState([]);
@@ -20,6 +20,7 @@ export default function MessageGroupPage() {
   const loadUserShortData = async () => {
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/users/@${params.handle}/short`;
+      await getAccessToken();
       const res = await fetch(backend_url, {
         method: "GET",
       });

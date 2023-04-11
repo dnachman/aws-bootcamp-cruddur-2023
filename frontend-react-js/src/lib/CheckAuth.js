@@ -1,23 +1,35 @@
 import { Auth } from "aws-amplify";
 
-const checkAuth = async (setUser) => {
+export async function getAccessToken() {
+  Auth.currentSession()
+    .then((cognitorUserSession) => {
+      const accessToken = cognitorUserSession.accessToken.jwtToken;
+      localStorage.setItem("access_token", accessToken);
+    })
+    .catch((err) => console.log(err));
+}
+
+export async function checkAuth(setUser) {
   Auth.currentAuthenticatedUser({
     // Optional, By default is false.
     // If set to true, this call will send a
     // request to Cognito to get the latest user data
     bypassCache: false,
   })
-    .then((user) => {
-      console.log("user", user);
-      return Auth.currentAuthenticatedUser();
-    })
-    .then((cognito_user) => {
+    .then((cognitoUser) => {
+      console.log("cognitoUser", cognitoUser);
       setUser({
-        display_name: cognito_user.attributes.name,
-        handle: cognito_user.attributes.preferred_username,
+        display_name: cognitoUser.attributes.name,
+        handle: cognitoUser.attributes.preferred_username,
       });
+      return Auth.currentSession();
+    })
+    .then((cognitorUserSession) => {
+      console.log("cognitoUserSession", cognitorUserSession);
+      localStorage.setItem(
+        "access_token",
+        cognitorUserSession.accessToken.jwtToken
+      );
     })
     .catch((err) => console.log(err));
-};
-
-export default checkAuth;
+}
