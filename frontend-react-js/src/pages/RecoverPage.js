@@ -11,29 +11,29 @@ export default function RecoverPage() {
   const [password, setPassword] = React.useState("");
   const [passwordAgain, setPasswordAgain] = React.useState("");
   const [code, setCode] = React.useState("");
-  const [cognitoErrors, setCognitoErrors] = React.useState("");
+  const [errors, setErrors] = React.useState("");
   const [formState, setFormState] = React.useState("send_code");
 
   const onsubmit_send_code = async (event) => {
     event.preventDefault();
     console.log("onsubmit_send_code");
-    setCognitoErrors("");
+    setErrors("");
     Auth.forgotPassword(username)
       .then((data) => setFormState("confirm_code"))
-      .catch((err) => setCognitoErrors(err.message));
+      .catch((err) => setErrors(err.message));
     return false;
   };
 
   const onsubmit_confirm_code = async (event) => {
     event.preventDefault();
-    setCognitoErrors("");
+    setErrors("");
     console.log("onsubmit_confirm_code");
     if (password === passwordAgain) {
       Auth.forgotPasswordSubmit(username, code, password)
         .then((data) => setFormState("success"))
-        .catch((err) => setCognitoErrors(err.message));
+        .catch((err) => setErrors(err.message));
     } else {
-      setCognitoErrors("Passwords do not match");
+      setErrors("Passwords do not match");
     }
     return false;
   };
@@ -52,8 +52,8 @@ export default function RecoverPage() {
   };
 
   let el_errors;
-  if (cognitoErrors) {
-    el_errors = <div className="errors">{cognitoErrors}</div>;
+  if (errors) {
+    el_errors = <div className="errors">{errors}</div>;
   }
 
   const send_code = () => {
