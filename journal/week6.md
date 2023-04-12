@@ -305,3 +305,10 @@ Create `Dockerfile.prod` in backend directory and remove debugging/reload option
 Rebuilt the image, tag it, and upload it to ECR
 ![backend-flask-prod](assets/wk6/backend-flask-prod.png)
 Force an update to the `backend-flask` service to pick up the new image
+
+## Additional items
+
+Configured environment variables and refactored bin directory
+Added xray to the containers
+Switched docker-compose to use custom network
+Configured container insights
