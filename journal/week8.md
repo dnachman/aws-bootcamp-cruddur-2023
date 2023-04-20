@@ -21,3 +21,13 @@ Create the code to set up the lambda with code to be written in `aws/lambda/proc
 
 Update the CDK stack to set up s3 notifications to our lambda with the package `aws-cdk-lib/aws-s3-notifications` . Our stack now:
 ![cfn-stack-s3n](assets/wk8/cfn-stack-s3n.png)
+
+Make sure the lambda is allowed to Read and Put against the bucket:
+
+```
+assetsBucket.grantRead(myLambda);
+assetsBucket.grantPut(myLambda);
+```
+
+We can see the file processed (different sizes):
+![image-processed](assets/wk8/image-processed.png)

@@ -12,7 +12,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     super(scope, id, props);
 
     // The code that defines your stack goes here
-    const uploadsBucketName: string = process.env.UPLOADS_BUCKET_NAME as string;
+    // const uploadsBucketName: string = process.env.UPLOADS_BUCKET_NAME as string;
     const assetsBucketName: string = process.env.ASSETS_BUCKET_NAME as string;
     const folderInput: string = process.env.THUMBING_S3_FOLDER_INPUT as string;
     const folderOutput: string = process.env
@@ -20,7 +20,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     const webhookUrl: string = process.env.THUMBING_WEBHOOK_URL as string;
     const topicName: string = process.env.THUMBING_TOPIC_NAME as string;
     const functionPath: string = process.env.THUMBING_FUNCTION_PATH as string;
-    console.log("uploadsBucketName");
+    // console.log("uploadsBucketName");
     console.log("assetsBucketName", assetsBucketName);
     console.log("folderInput", folderInput);
     console.log("folderOutput", folderOutput);
@@ -28,17 +28,19 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     console.log("topicName", topicName);
     console.log("functionPath", functionPath);
 
-    const uploadsBucket = this.createBucket(uploadsBucketName);
+    // const uploadsBucket = this.createBucket(uploadsBucketName);
     const assetsBucket = this.importBucket(assetsBucketName);
-
     const myLambda = this.createLambda(
       functionPath,
-      uploadsBucketName,
       assetsBucketName,
       folderInput,
       folderOutput
     );
-    this.createS3NotifyToLambda(folderInput, myLambda, uploadsBucket);
+
+    assetsBucket.grantRead(myLambda);
+    assetsBucket.grantPut(myLambda);
+
+    this.createS3NotifyToLambda(folderInput, myLambda, assetsBucket);
   }
 
   createBucket(bucketName: string): s3.IBucket {
@@ -56,7 +58,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
 
   createLambda(
     functionPath: string,
-    uploadsBucketName: string,
+    // uploadsBucketName: string,
     assetsBucketName: string,
     folderInput: string,
     folderOutput: string

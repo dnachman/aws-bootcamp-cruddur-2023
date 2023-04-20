@@ -1,0 +1,3 @@
+#! /usr/bin/bash
+
+aws s3 rm s3://$ASSETS_BUCKET_NAME/avatars/original/boba.jpg
