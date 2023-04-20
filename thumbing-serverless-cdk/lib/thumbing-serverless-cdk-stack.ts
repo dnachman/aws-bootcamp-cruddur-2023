@@ -84,6 +84,8 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     bucket: s3.IBucket
   ): void {
     const destination = new s3n.LambdaDestination(lambda);
-    bucket.addEventNotification(s3.EventType.OBJECT_CREATED_PUT, destination);
+    bucket.addEventNotification(s3.EventType.OBJECT_CREATED_PUT, destination, {
+      prefix: prefix,
+    });
   }
 }

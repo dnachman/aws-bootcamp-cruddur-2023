@@ -1,3 +1,4 @@
 #! /usr/bin/bash
 
 aws s3 rm s3://$ASSETS_BUCKET_NAME/avatars/original/boba.jpg
+aws s3 rm s3://$ASSETS_BUCKET_NAME/avatars/processed/boba.jpg
