@@ -18,3 +18,6 @@ Deploy the stack with `cdk deploy`
 ![cloudformation-stacks](assets/wk8/cloudformation-stacks.png)
 
 Create the code to set up the lambda with code to be written in `aws/lambda/process-images`
+
+Update the CDK stack to set up s3 notifications to our lambda with the package `aws-cdk-lib/aws-s3-notifications` . Our stack now:
+![cfn-stack-s3n](assets/wk8/cfn-stack-s3n.png)
