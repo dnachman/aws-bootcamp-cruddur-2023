@@ -31,3 +31,7 @@ assetsBucket.grantPut(myLambda);
 
 We can see the file processed (different sizes):
 ![image-processed](assets/wk8/image-processed.png)
+
+Create the SNS Topic
+Create a SNS Subscription
+Update / attach policies to allow permission
