@@ -15,7 +15,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     super(scope, id, props);
 
     // The code that defines your stack goes here
-    // const uploadsBucketName: string = process.env.UPLOADS_BUCKET_NAME as string;
+    const uploadsBucketName: string = process.env.UPLOADS_BUCKET_NAME as string;
     const assetsBucketName: string = process.env.ASSETS_BUCKET_NAME as string;
     const folderInput: string = process.env.THUMBING_S3_FOLDER_INPUT as string;
     const folderOutput: string = process.env
@@ -23,7 +23,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     const webhookUrl: string = process.env.THUMBING_WEBHOOK_URL as string;
     const topicName: string = process.env.THUMBING_TOPIC_NAME as string;
     const functionPath: string = process.env.THUMBING_FUNCTION_PATH as string;
-    // console.log("uploadsBucketName");
+    console.log("uploadsBucketName", uploadsBucketName);
     console.log("assetsBucketName", assetsBucketName);
     console.log("folderInput", folderInput);
     console.log("folderOutput", folderOutput);
@@ -31,12 +31,13 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     console.log("topicName", topicName);
     console.log("functionPath", functionPath);
 
-    // const uploadsBucket = this.createBucket(uploadsBucketName);
+    const uploadsBucket = this.createBucket(uploadsBucketName);
     const assetsBucket = this.importBucket(assetsBucketName);
 
     // lambda to process images
     const myLambda = this.createLambda(
       functionPath,
+      uploadsBucketName,
       assetsBucketName,
       folderInput,
       folderOutput
@@ -45,26 +46,30 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     assetsBucket.grantRead(myLambda);
     assetsBucket.grantPut(myLambda);
 
-    // push an event to lambda when new user upload
-    this.createS3NotifyToLambda(folderInput, myLambda, assetsBucket);
-
+    // SNS topic and subscription
     const snsTopic = this.createSnsTopic(topicName);
-
     this.createSnsSubscription(snsTopic, webhookUrl);
 
+    // push an event to lambda when new user upload
+    this.createS3NotifyToLambda(folderInput, myLambda, uploadsBucket);
     this.createS3NotifyToSns(folderOutput, snsTopic, assetsBucket);
 
-    const s3ReadWritePolicy = this.createPolicyBucketAccess(
+    // policies
+    const s3UploadsReadWritePolicy = this.createPolicyBucketAccess(
+      uploadsBucket.bucketArn
+    );
+    const s3AssetsReadWritePolicy = this.createPolicyBucketAccess(
       assetsBucket.bucketArn
     );
+
     const snsPublishPolicy = this.createPolicySnSPublish(snsTopic.topicArn);
 
-    myLambda.addToRolePolicy(s3ReadWritePolicy);
-    myLambda.addToRolePolicy(snsPublishPolicy);
+    myLambda.addToRolePolicy(s3UploadsReadWritePolicy);
+    myLambda.addToRolePolicy(s3AssetsReadWritePolicy);
   }
 
   createBucket(bucketName: string): s3.IBucket {
-    const bucket = new s3.Bucket(this, "ThumbingBucket", {
+    const bucket = new s3.Bucket(this, "UploadsBucket", {
       bucketName: bucketName,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
@@ -78,7 +83,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
 
   createLambda(
     functionPath: string,
-    // uploadsBucketName: string,
+    uploadsBucketName: string,
     assetsBucketName: string,
     folderInput: string,
     folderOutput: string
@@ -110,7 +115,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
   }
 
   createSnsTopic(topicName: string): sns.ITopic {
-    const logicalName = "Topic";
+    const logicalName = "ThumbingTopic";
     const snsTopic = new sns.Topic(this, logicalName, {
       topicName: topicName,
     });

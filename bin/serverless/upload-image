@@ -1,3 +1,0 @@
-#! /usr/bin/bash
-
-aws s3 cp extra/boba.jpg s3://$ASSETS_BUCKET_NAME/avatars/original/

@@ -35,3 +35,16 @@ We can see the file processed (different sizes):
 Create the SNS Topic
 Create a SNS Subscription
 Update / attach policies to allow permission
+
+## CloudFront
+
+Set up a cloudfront distribution for assets.cruddur.n5n.org:
+![](assets/wk8/cf-dist.png)
+
+Allow cloudfront access to the s3 bucket:
+![](assets/wk8/s3-bucket-policy.png)
+
+Set up Route53 so domain assets.cruddur.n5n.org is aliased to the cloudfront distribution:
+![](assets/wk8/route53-assets.png)
+
+Refactor buckets and CDK to separate uploads from assets for distribution from cloudfront
