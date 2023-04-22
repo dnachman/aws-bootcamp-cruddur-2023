@@ -7,10 +7,11 @@ import DesktopSidebar from "../components/DesktopSidebar";
 import ActivityFeed from "../components/ActivityFeed";
 import ActivityForm from "../components/ActivityForm";
 
-import { Auth } from "aws-amplify";
+import { checkAuth, getAccessToken } from "../lib/CheckAuth";
 
 export default function UserFeedPage() {
   const [activities, setActivities] = React.useState([]);
+  const [profile, setProfile] = React.useState([]);
   const [popped, setPopped] = React.useState([]);
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
@@ -21,12 +22,21 @@ export default function UserFeedPage() {
   const loadData = async () => {
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/${title}`;
+      await getAccessToken();
+      const access_token = localStorage.getItem("access_token");
       const res = await fetch(backend_url, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
         method: "GET",
       });
       let resJson = await res.json();
+      console.log("resJson", resJson);
       if (res.status === 200) {
-        setActivities(resJson);
+        console.log("setProfile", resJson.profile);
+        console.log("setActivities", resJson.activities);
+        setActivities(resJson.activities);
+        setProfile(resJson.profile);
       } else {
         console.log(res);
       }
@@ -35,31 +45,13 @@ export default function UserFeedPage() {
     }
   };
 
-  const checkAuth = async () => {
-    console.log("checkAuth");
-    Auth.currentAuthenticatedUser({
-      bypassCache: false,
-    })
-      .then((user) => {
-        console.log("user", user);
-        return Auth.currentAuthenticatedUser();
-      })
-      .then((cognito_user) => {
-        setUser({
-          display_name: cognito_user.attributes.name,
-          handle: cognito_user.attributes.preferred_username,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-
   React.useEffect(() => {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
     loadData();
-    checkAuth();
+    checkAuth(setUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

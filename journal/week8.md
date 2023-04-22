@@ -48,3 +48,7 @@ Set up Route53 so domain assets.cruddur.n5n.org is aliased to the cloudfront dis
 ![](assets/wk8/route53-assets.png)
 
 Refactor buckets and CDK to separate uploads from assets for distribution from cloudfront
+
+## Implement user profiles page
+
+Update the backend to pull data from the database by implementing `backend-flask/db/sql/users/show.sql`
