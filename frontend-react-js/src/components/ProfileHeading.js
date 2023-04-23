@@ -5,7 +5,7 @@ import ProfileAvatar from "./ProfileAvatar";
 
 export default function ProfileHeading(props) {
   const backgroundImage =
-    'url("https://assets.cruddur.com/banners/banner.jpg")';
+    'url("https://assets.cruddur.n5n.org/banners/star-wars-header.png")';
   const styles = {
     backgroundImage: backgroundImage,
     backgroundSize: "cover",
