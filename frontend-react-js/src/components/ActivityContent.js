@@ -32,7 +32,9 @@ export default function ActivityContent(props) {
               className="created_at"
               title={format_datetime(props.activity.created_at)}
             >
-              <span className="ago">{time_ago(props.activity.created_at)}</span>
+              <span className="ago">
+                {time_ago(props.activity.created_at)} ago
+              </span>
             </div>
             {expires_at}
           </div>

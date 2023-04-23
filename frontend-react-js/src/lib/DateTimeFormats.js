@@ -42,10 +42,10 @@ export function time_ago(value) {
   const diff_days = future.diff(now, "days").toObject().days;
 
   if (diff_hours > 24.0) {
-    return `${Math.floor(diff_days)}d`;
+    return `${Math.abs(Math.floor(diff_days))}d`;
   } else if (diff_hours < 24.0 && diff_hours > 1.0) {
-    return `${Math.floor(diff_hours)}h`;
+    return `${Math.abs(Math.floor(diff_hours))}h`;
   } else if (diff_hours < 1.0) {
-    return `${Math.round(diff_mins)}m`;
+    return `${Math.abs(Math.round(diff_mins))}m`;
   }
 }

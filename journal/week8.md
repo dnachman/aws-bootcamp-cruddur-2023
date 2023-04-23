@@ -52,3 +52,23 @@ Refactor buckets and CDK to separate uploads from assets for distribution from c
 ## Implement user profiles page
 
 Update the backend to pull data from the database by implementing `backend-flask/db/sql/users/show.sql`
+Create new components, their css and adjust some other components sucah as UserFeedPage, etc:
+
+- ProfileForm
+- ProfileHeading
+- ProfileAvatar
+- EditProfileButton
+
+Here's what it is looking at while working through it so far:
+![](assets/wk8/profile-wip-banner-avatar.png)
+
+## Extra stuff
+
+Posting activities (crud button) were hard coded to the Andrew Brown id. (This will probably get fixed later in the course) Fixed it by:
+
+- Modifying `app.py` to read the **cognito_user_id** from the claims
+- Modify `create_activity.py` and `create.sql` to use the Cognito user id to give credit to the poster
+- `ActivityForm.js` needed to send `Authorization` header
+- Modified the `DateTimeFormats.js` to not show negative numbers and clean up the display
+
+![](assets/wk8/fix-crud-user.png)
