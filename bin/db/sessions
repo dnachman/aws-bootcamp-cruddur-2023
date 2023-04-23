@@ -12,7 +12,7 @@ else
   URL=$CONNECTION_URL
 fi
 
-NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$URL")
+NO_DB_CONNECTION_URL=$(sed 's/5432\/cruddur/5432/g' <<<"$URL")
 psql $NO_DB_CONNECTION_URL -c "select pid as process_id, \
        usename as user,  \
        datname as db, \

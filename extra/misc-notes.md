@@ -14,5 +14,5 @@ git push origin my-tag-name
 ## Postgresql Commands
 
 - `\l` : list databases
-- `\x` : exit psql
+- `\q` : exit psql
 - `\dt` : list tables
