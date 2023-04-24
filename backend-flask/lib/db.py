@@ -80,8 +80,9 @@ class Db:
     print ("pgcode:", err.pgcode, "\n")
 
   # we want to commit data such as an insert
-  def query_commit(self,sql,params={}):
-    self.print_sql('commit with returning',sql, params)
+  def query_commit(self,sql,params={},verbose=True):
+    if verbose:
+      self.print_sql('commit with returning',sql,params)
 
     
     # be sure to check for RETURNING in all uppercases  
@@ -101,8 +102,9 @@ class Db:
       self.print_sql_err(err)
 
   # when we want to return a json object
-  def query_array_json(self,sql,params={}):
-    self.print_sql('array',sql)
+  def query_array_json(self,sql,params={},verbose=True):
+    if verbose:
+      self.print_sql('array',sql,params)
 
     wrapped_sql = self.query_wrap_array(sql)
     with self.pool.connection() as conn:
@@ -112,10 +114,10 @@ class Db:
         return json[0]
       
   # When we want to return an array of json objects
-  def query_object_json(self,sql,params={}):
-
-    self.print_sql('json',sql)
-    self.print_params(params)
+  def query_object_json(self,sql,params={},verbose=True):
+    if verbose:
+      self.print_sql('json',sql,params)
+      self.print_params(params)
     wrapped_sql = self.query_wrap_object(sql)
 
     with self.pool.connection() as conn:
@@ -128,12 +130,16 @@ class Db:
           return json[0]
         
   # query a single value
-  def query_value(self, sql, params={}):
-    self.print_sql('value',sql, params)
+  def query_value(self, sql, params={},verbose=True):
+    if verbose:
+      self.print_sql('value',sql,params)
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
         cur.execute(sql, params)
         json = cur.fetchone()
-        return json[0]
+        if json == None:
+          return None
+        else:
+          return json[0]
 
 db = Db()

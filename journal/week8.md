@@ -62,6 +62,15 @@ Create new components, their css and adjust some other components sucah as UserF
 Here's what it is looking at while working through it so far:
 ![](assets/wk8/profile-wip-banner-avatar.png)
 
+## DB Migration code
+
+Implement db migration scripts and new table `public.schema_information`
+![](assets/wk8/db-migrate.png)
+![](assets/wk8/db-rollback.png)
+
+Here's the user profile page after the changes:
+![](assets/wk8/user-profile.png)
+
 ## Extra stuff
 
 Posting activities (crud button) were hard coded to the Andrew Brown id. (This will probably get fixed later in the course) Fixed it by:
