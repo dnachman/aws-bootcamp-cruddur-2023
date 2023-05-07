@@ -71,6 +71,11 @@ Implement db migration scripts and new table `public.schema_information`
 Here's the user profile page after the changes:
 ![](assets/wk8/user-profile.png)
 
+## Client side avatar upload
+
+Create a lambda to return the presigned URL
+**I skipped Ruby and did it in Javascript**
+
 ## Extra stuff
 
 Posting activities (crud button) were hard coded to the Andrew Brown id. (This will probably get fixed later in the course) Fixed it by:
