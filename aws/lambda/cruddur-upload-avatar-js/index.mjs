@@ -1,6 +1,6 @@
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { Jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export const handler = async (event) => {
   const Bucket = process.env.UPLOADS_BUCKET;
@@ -33,14 +33,14 @@ export const handler = async (event) => {
 
     response = {
       statusCode: 200,
-      body: JSON.stringify(url),
+      body: JSON.stringify({ url }),
     };
   }
 
   // common headers
   response.headers = {
     "Access-Control-Allow-Headers": "*, Authorization",
-    "Access-Control-Allow-Origin": process.env.CORS_ALLOW_ORIGIN,
+    "Access-Control-Allow-Origin": process.env.CORS_ALLOW_ORIGIN, // change this to reflect the origin we received (maybe check allow-list?)
     "Access-Control-Allow-Methods": "OPTIONS,GET,POST",
   };
 

@@ -27,7 +27,7 @@ export default function ProfileForm(props) {
         body: JSON.stringify(json),
         headers: {
           Origin: `${window.location.origin.toString()}`,
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `${access_token}`,
           Accept: "application/json",
           "Content-Type": "application/json",
           // "X-DEBUG": "david was here",
@@ -36,8 +36,11 @@ export default function ProfileForm(props) {
       console.log("fetchOptions", fetchOptions);
 
       const res = await fetch(gateway_url, fetchOptions);
-      let data = await res.json();
+
       if (res.status === 200) {
+        let data = await res.json();
+        console.log("data", data);
+
         return data.url;
       } else {
         console.log(res);
@@ -57,6 +60,7 @@ export default function ProfileForm(props) {
     const fileparts = filename.split(".");
     const extension = fileparts[fileparts.length - 1];
     const presignedurl = await s3uploadkey(extension);
+    console.log("presignedurl", presignedurl);
     try {
       console.log("s3upload");
       const res = await fetch(presignedurl, {
