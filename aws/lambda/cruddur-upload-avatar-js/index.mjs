@@ -1,11 +1,17 @@
-import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
-import { S3Client } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { Jwt } from "jsonwebtoken";
 
 export const handler = async (event) => {
   const Bucket = process.env.UPLOADS_BUCKET;
   const Key = "mock.jpg";
 
   let response = {};
+
+  const putObjectParams = {
+    Bucket,
+    Key,
+  };
 
   console.log("event: " + JSON.stringify(event));
 
@@ -20,12 +26,10 @@ export const handler = async (event) => {
     console.log("preflight CORS check:  " + JSON.stringify(response));
   } else {
     const client = new S3Client({ region: "us-east-1" });
-    const { url, fields } = await createPresignedPost(client, {
-      Bucket,
-      Key,
-    });
+    const command = new PutObjectCommand(putObjectParams);
+    const url = await getSignedUrl(client, command, { expiresIn: 3600 });
 
-    console.log("URL:  " + url + "\n Fields: " + JSON.stringify(fields));
+    console.log("URL:  " + url);
 
     response = {
       statusCode: 200,
