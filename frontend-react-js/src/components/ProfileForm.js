@@ -16,21 +16,26 @@ export default function ProfileForm(props) {
     console.log("ext", extension);
     try {
       const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}/avatars/key_upload`;
+      console.log("gateway_url", gateway_url);
       await getAccessToken();
       const access_token = localStorage.getItem("access_token");
       const json = {
         extension: extension,
       };
-      const res = await fetch(gateway_url, {
+      const fetchOptions = {
         method: "POST",
         body: JSON.stringify(json),
         headers: {
-          Origin: process.env.REACT_APP_FRONTEND_URL,
+          Origin: `${window.location.origin.toString()}`,
           Authorization: `Bearer ${access_token}`,
           Accept: "application/json",
           "Content-Type": "application/json",
+          // "X-DEBUG": "david was here",
         },
-      });
+      };
+      console.log("fetchOptions", fetchOptions);
+
+      const res = await fetch(gateway_url, fetchOptions);
       let data = await res.json();
       if (res.status === 200) {
         return data.url;
