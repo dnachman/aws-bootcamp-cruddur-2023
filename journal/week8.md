@@ -80,6 +80,30 @@ Create a lambda authorizer function
 
 Connect api gateway for the GET `/avatars/key_upload` path with the authorizer
 
+Set up CORS for the s3 upload bucket:
+
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [
+            "x-amz-server-side-encryption",
+            "x-amz-request-id",
+            "x-amz-id-d"
+        ],
+        "MaxAgeSeconds": 30000
+    }
+]
+```
+
 ## Extra stuff
 
 Posting activities (crud button) were hard coded to the Andrew Brown id. (This will probably get fixed later in the course) Fixed it by:
