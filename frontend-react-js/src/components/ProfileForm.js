@@ -98,6 +98,7 @@ export default function ProfileForm(props) {
           display_name: displayName,
         }),
       });
+      // eslint-disable-next-line no-unused-vars
       let data = await res.json();
       if (res.status === 200) {
         setBio(null);

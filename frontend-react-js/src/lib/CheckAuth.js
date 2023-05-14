@@ -21,6 +21,8 @@ export async function checkAuth(setUser) {
       setUser({
         display_name: cognitoUser.attributes.name,
         handle: cognitoUser.attributes.preferred_username,
+        sub: cognitoUser.attributes.sub,
+        email: cognitoUser.attributes.email,
       });
       return Auth.currentSession();
     })

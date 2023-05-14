@@ -48,14 +48,18 @@ export default function UserFeedPage() {
   };
 
   React.useEffect(() => {
+    checkAuth(setUser);
+  }, []);
+
+  React.useEffect(() => {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
+    // checkAuth(setUser);
 
     loadData();
-    checkAuth(setUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   return (
     <article>
@@ -64,11 +68,16 @@ export default function UserFeedPage() {
         <ActivityForm popped={popped} setActivities={setActivities} />
         <ProfileForm
           profile={profile}
+          user={user}
           popped={poppedProfile}
           setPopped={setPoppedProfile}
         />
         <div className="activity_feed">
-          <ProfileHeading setPopped={setPoppedProfile} profile={profile} />
+          <ProfileHeading
+            setPopped={setPoppedProfile}
+            profile={profile}
+            user={user}
+          />
           <ActivityFeed activities={activities} />
         </div>
       </div>
