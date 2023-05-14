@@ -45,6 +45,7 @@ Allow cloudfront access to the s3 bucket:
 ![](assets/wk8/s3-bucket-policy.png)
 
 Set up Route53 so domain assets.cruddur.n5n.org is aliased to the cloudfront distribution:
+
 ![](assets/wk8/route53-assets.png)
 
 Refactor buckets and CDK to separate uploads from assets for distribution from cloudfront
@@ -69,6 +70,7 @@ Implement db migration scripts and new table `public.schema_information`
 ![](assets/wk8/db-rollback.png)
 
 Here's the user profile page after the changes:
+
 ![](assets/wk8/user-profile.png)
 
 ## Client side avatar upload
@@ -217,7 +219,16 @@ rm -r "$TMP_DIR"
 ```
 
 Configuring the layer:
+
 ![lambda-layer](assets/wk8/lambda-layer.png)
+
+## Serve the profile avatars
+
+Many changes across the frontend code to show the avatars from s3
+
+End result is here:
+
+![cruddur-avatars](assets/wk8/cruddur-avatars.png)
 
 ## Extra stuff
 
@@ -229,3 +240,5 @@ Posting activities (crud button) were hard coded to the Andrew Brown id. (This w
 - Modified the `DateTimeFormats.js` to not show negative numbers and clean up the display
 
 ![](assets/wk8/fix-crud-user.png)
+
+- I also implemented the upload lambda as NodeJS instead of Ruby, as described above.
