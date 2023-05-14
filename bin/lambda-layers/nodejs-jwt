@@ -1,0 +1,23 @@
+#! /usr/bin/bash
+
+TMP_DIR="/tmp/dnachman/lambda-layers"
+
+if [ ! -d $TMP_DIR ]; then
+  mkdir -p "$TMP_DIR"
+fi
+
+cd "$TMP_DIR"
+
+npm init -y
+npm install aws-jwt-verify
+
+zip -r aws-jwt-verify.zip . 
+
+aws lambda publish-layer-version \
+  --layer-name aws-jwt-verify  \
+  --description "Lambda Layer for aws-jwt-verify" \
+  --license-info "MIT" \
+  --zip-file fileb://aws-jwt-verify.zip \
+  --compatible-runtimes nodejs18.x
+
+rm -r "$TMP_DIR"
