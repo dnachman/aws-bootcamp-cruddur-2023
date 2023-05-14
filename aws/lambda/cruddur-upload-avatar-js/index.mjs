@@ -31,7 +31,12 @@ export const handler = async (event, context) => {
 
       const putObjectParams = {
         Bucket: process.env.UPLOADS_BUCKET,
-        Key: payload.sub + "." + JSON.parse(event.body).extension,
+        Key:
+          process.env.UPLOADS_BUCKET_PATH +
+          "/" +
+          payload.sub +
+          "." +
+          JSON.parse(event.body).extension,
       };
 
       console.log("putObjectParams:  " + JSON.stringify(putObjectParams));
