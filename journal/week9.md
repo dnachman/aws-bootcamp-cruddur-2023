@@ -58,7 +58,17 @@ Added ecr:getAuthorizationToken permissions to the CodeBuild role:
     {
       "Sid": "VisualEditor0",
       "Effect": "Allow",
-      "Action": ["ecr:BatchGetImage", "ecr:PutImage"],
+      "Action": [
+        "ecr:BatchGetImage",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:CompleteLayerUpload",
+        "ecr:DescribeImages",
+        "ecr:DescribeRepositories",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:InitiateLayerUpload",
+        "ecr:PutImage",
+        "ecr:UploadLayerPart"
+      ],
       "Resource": "arn:aws:ecr:*:774431287401:repository/*"
     },
     {
@@ -72,3 +82,5 @@ Added ecr:getAuthorizationToken permissions to the CodeBuild role:
 ```
 
 ![](assets/wk9/codebuild-policy-ecr.png)
+
+![](assets/wk9/crud-back-build-success.png)
