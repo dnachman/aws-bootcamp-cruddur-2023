@@ -84,3 +84,5 @@ Added ecr:getAuthorizationToken permissions to the CodeBuild role:
 ![](assets/wk9/codebuild-policy-ecr.png)
 
 ![](assets/wk9/crud-back-build-success.png)
+
+Updated the CodePipeline with a `bake` build stage
