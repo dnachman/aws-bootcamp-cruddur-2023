@@ -287,7 +287,7 @@ def data_users_short(handle):
 
 @app.route('/api/health-check')
 def health_check():
-  return {'success': True}, 200
+  return {'success': True, 'version': 1}, 200
 
 @app.route("/api/profile/update", methods=['POST','OPTIONS'])
 @cross_origin()
