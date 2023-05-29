@@ -1,0 +1,11 @@
+#! /usr/bin/env bash
+set -e
+
+CFN_PATH="aws/cfn/template.yaml"
+STACK_NAME="my-cluster"
+
+aws cloudformation deploy \
+    --template-file $CFN_PATH \
+    --stack-name $STACK_NAME \
+    --capabilities CAPABILITY_NAMED_IAM \
+    --no-execute-changeset
