@@ -1,6 +1,6 @@
 # Week 10 — CloudFormation Part 1
 
-## Stuff
+## Preparation
 
 Install `cfn-lint` for python
 
@@ -13,3 +13,11 @@ aws s3 mk s3://cfn-artifacts
 export CFN_BUCKET="cfn-artifacts"
 gp env CFN_BUCKET="cfn-artifacts"
 ```
+
+## Networking
+
+Create VPC
+
+Create InternetGateway / Attach
+Create RouteTable
+Create Route
