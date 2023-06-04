@@ -2,7 +2,7 @@
 set -e # stop the execution of the script if it fails
 
 CFN_PATH="aws/cfn/networking/template.yaml"
-CFN_STACK_NAME="cruddur-net"
+CFN_STACK_NAME="CrdNet"
 echo $CFN_PATH
 
 cfn-lint $CFN_PATH

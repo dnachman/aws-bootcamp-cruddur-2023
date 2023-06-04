@@ -44,6 +44,13 @@ Output of cloudformation:
 Cluster overview screen:
 ![](assets/wk10/cluster-overview.png)
 
+## Services
+
+CFN template in `aws/cfn/service/template.yaml`
+
 ## Postgres DB
 
 CFN Template in `aws/cfn/db/template.yaml`
+
+Healthy backend cluster once done:
+![](assets/wk10/healthy-backend-service.png)

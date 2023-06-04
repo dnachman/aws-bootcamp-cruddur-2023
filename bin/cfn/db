@@ -3,7 +3,7 @@ set -e # stop the execution of the script if it fails
 
 # CFN_BUCKET set globally in the environment
 CFN_PATH="aws/cfn/db/template.yaml"
-CFN_STACK_NAME="cruddur-db"
+CFN_STACK_NAME="CrdDb"
 
 cfn-lint $CFN_PATH
 
@@ -16,4 +16,5 @@ aws cloudformation deploy \
   --template-file "$CFN_PATH" \
   --no-execute-changeset \
   --tags group="$CFN_STACK_NAME"  \
-  --capabilities CAPABILITY_NAMED_IAM
+  --capabilities CAPABILITY_NAMED_IAM \
+  --parameter-overrides MasterUserPassword=$DB_PASSWORD
