@@ -33,3 +33,17 @@ Our VPC after creation:
 
 Outputs from cloudformation:
 ![](assets/wk10/cfn-net-output.png)
+
+## Cluster
+
+CFN Template in `aws/cfn/cluster/template.yaml`
+
+Output of cloudformation:
+![](assets/wk10/cluster-outputs.png)
+
+Cluster overview screen:
+![](assets/wk10/cluster-overview.png)
+
+## Postgres DB
+
+CFN Template in `aws/cfn/db/template.yaml`
