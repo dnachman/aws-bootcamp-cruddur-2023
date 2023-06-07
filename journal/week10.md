@@ -54,3 +54,5 @@ CFN Template in `aws/cfn/db/template.yaml`
 
 Healthy backend cluster once done:
 ![](assets/wk10/healthy-backend-service.png)
+
+## DDB
