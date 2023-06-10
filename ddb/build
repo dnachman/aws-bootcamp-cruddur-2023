@@ -3,7 +3,7 @@ set -e # stop the execution of the script if it fails
 
 BASE_DIR="$PWD"
 
-FUNC_DIR="$PWD/ddb/cruddur-messaging-stream/"
+FUNC_DIR="$PWD/ddb/"
 TEMPLATE_PATH="$PWD/ddb/template.yaml"
 CONFIG_PATH="$PWD/ddb/config.toml"
 

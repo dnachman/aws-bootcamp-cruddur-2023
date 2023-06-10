@@ -56,3 +56,5 @@ Healthy backend cluster once done:
 ![](assets/wk10/healthy-backend-service.png)
 
 ## DDB
+
+Use SAM
