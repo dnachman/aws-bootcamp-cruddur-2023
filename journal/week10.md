@@ -58,3 +58,5 @@ Healthy backend cluster once done:
 ## DDB
 
 Use SAM
+
+## CICD
