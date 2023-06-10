@@ -2,49 +2,42 @@ from datetime import datetime, timedelta, timezone
 from lib.db import db
 
 from opentelemetry import trace
-from aws_xray_sdk.core import xray_recorder
+
+# from aws_xray_sdk.core import xray_recorder
 
 
 tracer = trace.get_tracer("user.activities")
 
+
 class UserActivities:
-  def run(user_handle):
-    try:
+    def run(user_handle):
+        # try:
 
-      segment = xray_recorder.begin_segment("user_activities")
+        # segment = xray_recorder.begin_segment("user_activities")
 
-      model = {
-        'errors': None,
-        'data': None
-      }
+        model = {"errors": None, "data": None}
 
-      now = datetime.now(timezone.utc).astimezone()
-      
-      # Xray
-      segment_meta = {
-        "now" : now.isoformat(),
-        "hello": "david"
-      }
-      segment.put_metadata('key', segment_meta, 'namespace')
+        now = datetime.now(timezone.utc).astimezone()
 
-      if user_handle == None or len(user_handle) < 1:
-        model['errors'] = ['blank_user_handle']
-      else:
-        sql = db.template('users', 'show')
-        results = db.query_object_json(sql, {'handle': user_handle})
-        model['data'] = results
+        # Xray
+        segment_meta = {"now": now.isoformat(), "hello": "david"}
+        # segment.put_metadata('key', segment_meta, 'namespace')
 
-      #xray subsegments
-      subsegment = xray_recorder.begin_subsegment('mock-data')
+        if user_handle == None or len(user_handle) < 1:
+            model["errors"] = ["blank_user_handle"]
+        else:
+            sql = db.template("users", "show")
+            results = db.query_object_json(sql, {"handle": user_handle})
+            model["data"] = results
 
-      dict = {
-        "now": now.isoformat(),
-        "results-size": len(model['data'])
-      }
+        # xray subsegments
+        # subsegment = xray_recorder.begin_subsegment('mock-data')
 
-      subsegment.put_metadata('key', dict, 'namespace')
+        dict = {"now": now.isoformat(), "results-size": len(model["data"])}
 
-    finally:
-      xray_recorder.end_subsegment()
+        # subsegment.put_metadata('key', dict, 'namespace')
 
-    return model
+        # finally:
+        #   xray_recorder.end_subsegment()
+
+        return model

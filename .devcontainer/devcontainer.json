@@ -62,8 +62,10 @@
   },
   "remoteUser": "bootcamp",
   "postAttachCommand": {
-    "envvars": "./extra/aws-cpb.sh",
+    "envvars": ". ./extra/aws-cpb.sh",
+    "venv": ". ./backend-flask/venv/bin/activate",
     "frontend": "cd ./frontend-react-js && npm install",
-    "backend": "cd ./backend-flask && pip install -r requirements.txt"
+    "backend": "cd ./backend-flask && pip install -r requirements.txt",
+    "cfn-lint": "pip install cfn-lint"
   }
 }

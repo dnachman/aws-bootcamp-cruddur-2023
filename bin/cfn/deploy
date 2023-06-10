@@ -1,0 +1,16 @@
+#! /usr/bin/env bash
+set -e
+
+# Superseeded by other files....
+
+CFN_PATH="aws/cfn/template.yaml"
+STACK_NAME="cruddur"
+
+cfn-lint $CFN_PATH
+
+aws cloudformation deploy \
+    --template-file $CFN_PATH \
+    --s3-bucket $CFN_BUCKET \
+    --stack-name $STACK_NAME \
+    --capabilities CAPABILITY_NAMED_IAM \
+    --no-execute-changeset

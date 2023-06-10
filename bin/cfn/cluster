@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+set -e # stop the execution of the script if it fails
+
+# CFN_BUCKET set globally in the environment
+CFN_PATH="aws/cfn/cluster/template.yaml"
+CFN_STACK_NAME="CrdCluster"
+
+cfn-lint $CFN_PATH
+
+# PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
+
+aws cloudformation deploy \
+  --stack-name $CFN_STACK_NAME \
+  --s3-bucket $CFN_BUCKET \
+  --s3-prefix cluster \
+  --region $AWS_DEFAULT_REGION \
+  --template-file "$CFN_PATH" \
+  --no-execute-changeset \
+  --tags group="$CFN_STACK_NAME"  \
+  --capabilities CAPABILITY_NAMED_IAM 
+  # --parameter-overrides $PARAMETERS

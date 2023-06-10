@@ -85,4 +85,16 @@ Added ecr:getAuthorizationToken permissions to the CodeBuild role:
 
 ![](assets/wk9/crud-back-build-success.png)
 
-Updated the CodePipeline with a `bake` build stage
+Updated the CodePipeline with a `bake` build stage so the stages are configured as:
+
+Source:
+![](assets/wk9/pipeline-source.png)
+
+Build:
+![](assets/wk9/pipeline-build.png)
+
+Deploy:
+![](assets/wk9/pipeline-deploy.png)
+
+Fully triggered push to prod and deployment:
+![](assets/wk9/codebuild-success.png)
