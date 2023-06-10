@@ -31,8 +31,8 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 # amazon xray
-from aws_xray_sdk.core import xray_recorder
-from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+# from aws_xray_sdk.core import xray_recorder
+# from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
 # watchtower / cloudwatch
 import watchtower
@@ -63,9 +63,9 @@ LOGGER.addHandler(cw_handler)
 LOGGER.info("Hello from Cruddur")
 
 # xray
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service="backend-flask", dynamic_naming=xray_url)
-XRayMiddleware(app, xray_recorder)
+# xray_url = os.getenv("AWS_XRAY_URL")
+# xray_recorder.configure(service="backend-flask", dynamic_naming=xray_url)
+# XRayMiddleware(app, xray_recorder)
 
 # honeycomb - Initialize tracing and an exporter that can send data to Honeycomb
 provider = TracerProvider()
@@ -208,7 +208,7 @@ def data_create_message():
 
 
 @app.route("/api/activities/home", methods=["GET"])
-@xray_recorder.capture("activities_home")
+# @xray_recorder.capture("activities_home")
 def data_home():
     LOGGER.info("Hello Cloudwatch! from /api/activities/home")
     access_token = extract_access_token(request.headers)
@@ -277,7 +277,7 @@ def data_activities():
 
 
 @app.route("/api/activities/<string:activity_uuid>", methods=["GET"])
-@xray_recorder.capture("activities_show")
+# @xray_recorder.capture("activities_show")
 def data_show_activity(activity_uuid):
     data = ShowActivities.run(activity_uuid=activity_uuid)
     return data, 200
