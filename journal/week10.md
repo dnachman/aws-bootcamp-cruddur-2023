@@ -60,3 +60,7 @@ Healthy backend cluster once done:
 Use SAM
 
 ## CICD
+
+Codebuild
+
+## Frontend
