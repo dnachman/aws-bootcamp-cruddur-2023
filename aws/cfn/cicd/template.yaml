@@ -97,7 +97,7 @@ Resources:
                   Fn::ImportValue:
                     !Sub ${ClusterStack}ClusterName
                 # We decided not use a cross-stack so we can tear
-                # down a service seperate from it.
+                # down a service seperate from it. (similar issue exists with the ALB in cluster)
                 ServiceName: backend-flask
                 #  Fn::ImportValue:
                 #    !Sub ${ServiceStack}ServiceName

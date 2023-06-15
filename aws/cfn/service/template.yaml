@@ -14,6 +14,10 @@ Parameters:
     Type: String
     Description: This is our cluster layer eg. ECS Cluster, ALB
     Default: CrdCluster
+  AlbStack:
+    Type: String
+    Description: This is our application load balancer
+    Default: CrdAlb
   ContainerPort:
     Type: Number
     Default: 4567
@@ -87,7 +91,7 @@ Resources:
       LoadBalancers:
         - TargetGroupArn:
             Fn::ImportValue:
-              !Sub "${ClusterStack}BackendTGArn"
+              !Sub "${AlbStack}BackendTGArn"
           ContainerName: 'backend-flask'
           ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
@@ -95,7 +99,7 @@ Resources:
           AssignPublicIp: ENABLED
           SecurityGroups:
             - Fn::ImportValue:
-                !Sub "${ClusterStack}ServiceSecurityGroupId"
+                !Sub "${AlbStack}ServiceSecurityGroupId"
           Subnets:
             Fn::Split:
               - ","
