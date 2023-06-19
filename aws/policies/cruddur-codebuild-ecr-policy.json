@@ -15,7 +15,7 @@
         "ecr:PutImage",
         "ecr:UploadLayerPart"
       ],
-      "Resource": "arn:aws:ecr:*:774431287401:repository/*"
+      "Resource": "arn:aws:ecr:*:220856138283:repository/*"
     },
     {
       "Sid": "VisualEditor1",

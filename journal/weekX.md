@@ -27,8 +27,8 @@ Order to executeCFN :
 
 1. networking
 2. cluster
-3. database
-4. ALB
+3. ALB
+4. database
 5. service
 6. CICD
 

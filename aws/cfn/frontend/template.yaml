@@ -8,7 +8,7 @@ Description: |
 Parameters:
   CertificateArn:
     Type: String
-    Default: 'arn:aws:acm:us-east-1:774431287401:certificate/a5d083e8-13c0-4978-87fe-41dd7eb673f4'
+    Default: 'arn:aws:acm:us-east-1:220856138283:certificate/318467b6-d156-4003-bffe-fd2f926478b8'
   WwwBucketName:
     Type: String
     Default: 'www.cruddur.n5n.org'

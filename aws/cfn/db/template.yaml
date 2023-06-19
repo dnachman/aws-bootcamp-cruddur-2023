@@ -7,10 +7,10 @@ Parameters:
     Type: String
     Description: This is our base layer of networking components eg. VPC, Subnets
     Default: CrdNet
-  ClusterStack:
+  AlbStack:
     Type: String
-    Description: This is our FargateCluster
-    Default: CrdCluster
+    Description: This is our Application load balancer
+    Default: CrdAlb
   BackupRetentionPeriod:
     Type: Number
     Default: 0
@@ -54,7 +54,7 @@ Resources:
         - IpProtocol: tcp
           SourceSecurityGroupId:
             Fn::ImportValue:
-              !Sub ${ClusterStack}ServiceSecurityGroupId
+              !Sub ${AlbStack}ServiceSecurityGroupId
           FromPort: 5432
           ToPort: 5432
           Description: ALB HTTP

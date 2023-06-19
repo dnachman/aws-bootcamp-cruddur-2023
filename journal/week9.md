@@ -39,10 +39,10 @@ phases:
 
 env:
   variables:
-    AWS_ACCOUNT_ID: 774431287401
+    AWS_ACCOUNT_ID: 220856138283
     AWS_DEFAULT_REGION: us-east-1
     CONTAINER_NAME: backend-flask
-    IMAGE_URL: 774431287401.dkr.ecr.us-east-1.amazonaws.com
+    IMAGE_URL: 220856138283.dkr.ecr.us-east-1.amazonaws.com
     REPO_NAME: backend-flask:latest
 artifacts:
   files:
@@ -69,7 +69,7 @@ Added ecr:getAuthorizationToken permissions to the CodeBuild role:
         "ecr:PutImage",
         "ecr:UploadLayerPart"
       ],
-      "Resource": "arn:aws:ecr:*:774431287401:repository/*"
+      "Resource": "arn:aws:ecr:*:220856138283:repository/*"
     },
     {
       "Sid": "VisualEditor1",
