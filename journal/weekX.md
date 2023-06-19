@@ -29,7 +29,22 @@ Order to executeCFN :
 2. cluster
 3. ALB
 4. database
+
+```
+After:
+bin/rds/update-sg
+bin/db/schema-load
+bin/db/migrate
+```
+
 5. service
+
+```
+Before:
+ docker build -t backend-flask .
+ docker push $ECR_BACKEND_FLASK_URL:latest
+```
+
 6. CICD
 
 bin/rds/update-sg (change env variable as needed)

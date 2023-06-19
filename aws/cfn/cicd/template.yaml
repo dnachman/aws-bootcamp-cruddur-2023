@@ -13,9 +13,9 @@ Parameters:
   ClusterStack:
     Type: String
     Default: 'CrdCluster'
-  ServiceStack:
-    Type: String
-    Default: 'CrdSrvBackendFlask'
+  # ServiceStack:
+  #   Type: String
+  #   Default: 'CrdSrvBackendFlask'
   ArtifactBucketName:
     Type: String
     Default: 'cruddur-n5n-codepipeline-artifacts'
