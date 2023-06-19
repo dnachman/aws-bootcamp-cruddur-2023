@@ -1,0 +1,32 @@
+#! /usr/bin/env bash
+#set -e # stop the execution of the script if it fails
+
+CONFIG_PATH="$PWD/aws/cfn/cicd/config.toml"
+PACKAGED_PATH="$PWD/tmp/packaged-template.yaml"
+
+# CFN_BUCKET set globally in the environment
+CFN_PATH="aws/cfn/cicd/template.yaml"
+CFN_STACK_NAME="CrdCicd"
+
+cfn-lint $CFN_PATH
+
+
+# package
+# -----------------
+echo "== packaging CFN to S3..."
+aws cloudformation package \
+  --template-file $CFN_PATH \
+  --s3-bucket $CFN_BUCKET \
+  --s3-prefix cicd-package \
+  --region $AWS_DEFAULT_REGION \
+  --output-template-file "$PACKAGED_PATH"
+
+aws cloudformation deploy \
+  --stack-name $CFN_STACK_NAME \
+  --s3-bucket $CFN_BUCKET \
+  --s3-prefix cicd \
+  --region $AWS_DEFAULT_REGION \
+  --template-file "$PACKAGED_PATH" \
+  --no-execute-changeset \
+  --tags group="$CFN_STACK_NAME" \
+  --capabilities CAPABILITY_NAMED_IAM

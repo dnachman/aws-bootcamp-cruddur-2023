@@ -1,4 +1,4 @@
-FROM 774431287401.dkr.ecr.us-east-1.amazonaws.com/cruddur-python:3.10-slim-buster
+FROM 220856138283.dkr.ecr.us-east-1.amazonaws.com/cruddur-python:3.10-slim-buster
 WORKDIR /backend-flask
 
 # copy from working dir to image

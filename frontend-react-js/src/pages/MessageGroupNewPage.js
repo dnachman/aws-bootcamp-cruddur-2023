@@ -6,7 +6,9 @@ import DesktopNavigation from "../components/DesktopNavigation";
 import MessageGroupFeed from "../components/MessageGroupFeed";
 import MessagesFeed from "../components/MessageFeed";
 import MessagesForm from "../components/MessageForm";
-import { checkAuth, getAccessToken } from "../lib/CheckAuth";
+
+import { checkAuth } from "../lib/CheckAuth";
+import { get } from "../lib/Requests";
 
 export default function MessageGroupPage() {
   const [otherUser, setOtherUser] = React.useState([]);
@@ -17,54 +19,40 @@ export default function MessageGroupPage() {
   const dataFetchedRef = React.useRef(false);
   const params = useParams();
 
-  const loadUserShortData = async () => {
-    try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/users/@${params.handle}/short`;
-      await getAccessToken();
-      const res = await fetch(backend_url, {
-        method: "GET",
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        console.log("other user:", resJson);
-        setOtherUser(resJson);
-      } else {
-        console.log(res);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const loadMessageGroupsData = async () => {
-    try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/message_groups`;
-      const res = await fetch(backend_url, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-        method: "GET",
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        setMessageGroups(resJson);
-      } else {
-        console.log(res);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   React.useEffect(() => {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
+    // move functions inside use effect to prevent re-rendering
+    const loadUserShortData = async () => {
+      const url = `${process.env.REACT_APP_BACKEND_URL}/api/users/@${params.handle}/short`;
+
+      get(url, {
+        auth: true,
+        success: function (data) {
+          console.log("other user:", data);
+          setOtherUser(data);
+        },
+      });
+    };
+
+    const loadMessageGroupsData = async () => {
+      const url = `${process.env.REACT_APP_BACKEND_URL}/api/message_groups`;
+
+      get(url, {
+        auth: true,
+        success: function (data) {
+          console.log("message groups:", data);
+          setMessageGroups(data);
+        },
+      });
+    };
+
     loadMessageGroupsData();
     loadUserShortData();
     checkAuth(setUser);
-  }, [loadUserShortData]); // infinite re-render if we don't put the dependency
+  }, [params.handle]);
 
   return (
     <article>

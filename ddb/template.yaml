@@ -35,8 +35,8 @@ Resources:
         - AttributeName: sk
           KeyType: RANGE
       ProvisionedThroughput: 
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
       BillingMode: PROVISIONED
       DeletionProtectionEnabled: !Ref DeletionProtectionEnabled
       GlobalSecondaryIndexes:
@@ -78,7 +78,7 @@ Resources:
     Type: "AWS::Logs::LogGroup"
     Properties:
       LogGroupName: "/aws/lambda/cruddur-messaging-stream00"
-      RetentionInDays: 14
+      RetentionInDays: 5
   LambdaLogStream:
     Type: "AWS::Logs::LogStream"
     Properties:

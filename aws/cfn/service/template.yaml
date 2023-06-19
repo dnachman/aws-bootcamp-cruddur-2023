@@ -14,6 +14,10 @@ Parameters:
     Type: String
     Description: This is our cluster layer eg. ECS Cluster, ALB
     Default: CrdCluster
+  AlbStack:
+    Type: String
+    Description: This is our application load balancer
+    Default: CrdAlb
   ContainerPort:
     Type: Number
     Default: 4567
@@ -34,7 +38,7 @@ Parameters:
     Default: backend-flask
   EcrImage:
     Type: String
-    Default: '774431287401.dkr.ecr.us-east-1.amazonaws.com/backend-flask'
+    Default: '220856138283.dkr.ecr.us-east-1.amazonaws.com/backend-flask'
   EnvOtelServiceName:
     Type: String
     Default: backend-flask
@@ -55,19 +59,19 @@ Parameters:
     Default: "*"
   SecretsAWSAccessKeyId:
     Type: String
-    Default: 'arn:aws:ssm:us-east-1:774431287401:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'
+    Default: 'arn:aws:ssm:us-east-1:220856138283:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'
   SecretsSecretAccessKey:
     Type: String
-    Default: 'arn:aws:ssm:us-east-1:774431287401:parameter/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY'
+    Default: 'arn:aws:ssm:us-east-1:220856138283:parameter/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY'
   SecretsConnectionUrl:
     Type: String
-    Default: 'arn:aws:ssm:us-east-1:774431287401:parameter/cruddur/backend-flask/CONNECTION_URL'
+    Default: 'arn:aws:ssm:us-east-1:220856138283:parameter/cruddur/backend-flask/CONNECTION_URL'
   SecretsRollbarAccessToken:
     Type: String
-    Default: 'arn:aws:ssm:us-east-1:774431287401:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN'
+    Default: 'arn:aws:ssm:us-east-1:220856138283:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN'
   SecretsOtelExporterOltpHeaders:
     Type: String
-    Default: 'arn:aws:ssm:us-east-1:774431287401:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS'
+    Default: 'arn:aws:ssm:us-east-1:220856138283:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS'
   
 Resources:
   FargateService:
@@ -87,7 +91,7 @@ Resources:
       LoadBalancers:
         - TargetGroupArn:
             Fn::ImportValue:
-              !Sub "${ClusterStack}BackendTGArn"
+              !Sub "${AlbStack}BackendTGArn"
           ContainerName: 'backend-flask'
           ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
@@ -95,7 +99,7 @@ Resources:
           AssignPublicIp: ENABLED
           SecurityGroups:
             - Fn::ImportValue:
-                !Sub "${ClusterStack}ServiceSecurityGroupId"
+                !Sub "${AlbStack}ServiceSecurityGroupId"
           Subnets:
             Fn::Split:
               - ","

@@ -1,0 +1,12 @@
+[deploy]
+bucket = 'cruddur-n5n-cfn'
+region = 'us-east-1'
+stack_name = 'CrdCicd'
+
+[parameters]
+ServiceStack = 'CrdSrvBackendFlask'
+ClusterStack = 'CrdCluster'
+GitHubBranch = 'prod'
+GithubRepo = 'dnachman/aws-bootcamp-cruddur-2023'
+ArtifactBucketName = "cruddur-n5n-codepipeline-artifacts"
+BuildSpec = 'backend-flask/buildspec.yml'

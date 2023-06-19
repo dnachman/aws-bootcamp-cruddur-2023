@@ -4,7 +4,7 @@ set -e # stop the execution of the script if it fails
 ARTIFACT_BUCKET="cruddur-n5n-cfn"
 TEMPLATE_PATH=".aws-sam/build/template.yaml"
 OUTPUT_TEMPLATE_PATH=".aws-sam/build/packaged.yaml"
-CONFIG_PATH="aws/cfn/ddb/config.toml"
+CONFIG_PATH="$PWD/ddb/config.toml"
 
 echo "== package"
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
