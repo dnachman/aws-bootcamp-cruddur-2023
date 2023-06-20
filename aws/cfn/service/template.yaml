@@ -50,7 +50,7 @@ Parameters:
     Default: us-east-1_ZK6BqmG6j
   EnvCognitoUserPoolClientId:
     Type: String
-    Default: 6lom4s3f628h80mbbo9c7ueqb2
+    Default: 2u1fcd9cc53raog270qe1uaj87
   EnvFrontendUrl:
     Type: String
     Default: "*"
