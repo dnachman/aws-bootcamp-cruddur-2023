@@ -47,9 +47,18 @@ Before:
 
 6. CICD
 
+```
 bin/rds/update-sg (change env variable as needed)
 bin/db/schema-load
 bin/db/migrate
+```
+
+7. Frontend
+
+```
+bin/frontend/static-build
+bin/frontend/sync
+```
 
 Post confirmation lambda:
 Update the post confirmation lambda `CONNECTION_URL` environment variable.
