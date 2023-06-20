@@ -8,15 +8,15 @@ FRONTEND_REACT_JS_PATH="$PROJECT_PATH/frontend-react-js"
 
 FRONTEND_BUCKET="cruddur.n5n.org"
 
-echo $FRONTEND_BUCKET
-echo $FRONTEND_REACT_JS_PATH
+echo "bucket: $FRONTEND_BUCKET"
+echo "path: $FRONTEND_REACT_JS_PATH"
 
 # sync the frontend react js build to s3
 aws s3 sync $FRONTEND_REACT_JS_PATH/build/ s3://$FRONTEND_BUCKET/ 
 
 # get the cloudfront distribution id
-CF_DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?contains(Aliases.Items, 'cruddur.n5n.org')].Id" --output text)
-echo $CF_DISTRIBUTION_ID
+CF_DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[? contains(not_null(Aliases.Items, ''),'cruddur.n5n.org')].Id" --output text)
+echo "Distribution ID: $CF_DISTRIBUTION_ID"
 
 # invalidate the cloudfront cache
 aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTION_ID --paths "/*"

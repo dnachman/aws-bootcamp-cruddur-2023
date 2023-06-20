@@ -63,11 +63,11 @@
         },
         {
           "name": "AWS_COGNITO_USER_POOL_ID",
-          "value": "us-east-1_Ynp7ieLpL"
+          "value": "us-east-1_ZK6BqmG6j"
         },
         {
           "name": "AWS_COGNITO_USER_POOL_CLIENT_ID",
-          "value": "77b6n92j77dtiq8f6l2lm7mbb0"
+          "value": "6lom4s3f628h80mbbo9c7ueqb2"
         },
         {
           "name": "FRONTEND_URL",

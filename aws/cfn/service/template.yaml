@@ -47,10 +47,10 @@ Parameters:
     Default: https://api.honeycomb.io
   EnvAWSCognitoUserPoolId:
     Type: String
-    Default: us-east-1_Ynp7ieLpL
+    Default: us-east-1_ZK6BqmG6j
   EnvCognitoUserPoolClientId:
     Type: String
-    Default: 77b6n92j77dtiq8f6l2lm7mbb0
+    Default: 6lom4s3f628h80mbbo9c7ueqb2
   EnvFrontendUrl:
     Type: String
     Default: "*"
@@ -156,7 +156,7 @@ Resources:
             Interval: 30
             Timeout: 5
             Retries: 3
-            StartPeriod: 60
+            StartPeriod: 55
           PortMappings:
             - Name: !Ref ContainerName
               ContainerPort: !Ref ContainerPort
