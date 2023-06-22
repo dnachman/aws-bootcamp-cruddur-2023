@@ -2,6 +2,8 @@
 
 ## Setting up CDK for serverless image thumbnails
 
+Set up the CDK locally : `npm install -g aws-cdk`
+
 ```
 mkdir thumbing-serverless-cdk
 cd thumbing-serverless-cdk/
