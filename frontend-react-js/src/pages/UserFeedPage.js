@@ -9,7 +9,8 @@ import ActivityForm from "../components/ActivityForm";
 import ProfileHeading from "../components/ProfileHeading";
 import ProfileForm from "../components/ProfileForm";
 
-import { checkAuth, getAccessToken } from "../lib/CheckAuth";
+import { get } from "../lib/Requests";
+import { checkAuth } from "../lib/CheckAuth";
 
 export default function UserFeedPage() {
   const [activities, setActivities] = React.useState([]);
@@ -22,44 +23,26 @@ export default function UserFeedPage() {
   const params = useParams();
 
   const loadData = async () => {
-    try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`;
-      await getAccessToken();
-      const access_token = localStorage.getItem("access_token");
-      const res = await fetch(backend_url, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        method: "GET",
-      });
-      let resJson = await res.json();
-      console.log("resJson", resJson);
-      if (res.status === 200) {
-        console.log("setProfile", resJson.profile);
-        console.log("setActivities", resJson.activities);
-        setActivities(resJson.activities);
-        setProfile(resJson.profile);
-      } else {
-        console.log(res);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`;
+    get(url, {
+      auth: false,
+      success: function (data) {
+        console.log("setprofile", data.profile);
+        setProfile(data.profile);
+        setActivities(data.activities);
+      },
+    });
   };
-
-  React.useEffect(() => {
-    checkAuth(setUser);
-  }, []);
 
   React.useEffect(() => {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
-    // checkAuth(setUser);
 
     loadData();
+    checkAuth(setUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   return (
     <article>
@@ -68,16 +51,11 @@ export default function UserFeedPage() {
         <ActivityForm popped={popped} setActivities={setActivities} />
         <ProfileForm
           profile={profile}
-          user={user}
           popped={poppedProfile}
           setPopped={setPoppedProfile}
         />
         <div className="activity_feed">
-          <ProfileHeading
-            setPopped={setPoppedProfile}
-            profile={profile}
-            user={user}
-          />
+          <ProfileHeading setPopped={setPoppedProfile} profile={profile} />
           <ActivityFeed activities={activities} />
         </div>
       </div>

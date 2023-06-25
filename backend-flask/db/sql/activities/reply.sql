@@ -12,4 +12,3 @@ VALUES (
   %(message)s,
   %(reply_to_activity_uuid)s
 ) RETURNING uuid;
- No newline at end of file

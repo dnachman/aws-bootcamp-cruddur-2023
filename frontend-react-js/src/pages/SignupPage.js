@@ -2,6 +2,7 @@ import "./SignupPage.css";
 import React from "react";
 import { ReactComponent as Logo } from "../components/svg/logo.svg";
 import { Link } from "react-router-dom";
+import FormErrors from "../components/FormErrors";
 
 import { Auth } from "aws-amplify";
 
@@ -11,11 +12,11 @@ export default function SignupPage() {
   const [email, setEmail] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [cognitoErrors, setCognitoErrors] = React.useState("");
+  const [errors, setErrors] = React.useState("");
 
   const onsubmit = async (event) => {
     event.preventDefault();
-    setCognitoErrors("");
+    setErrors("");
     console.log("SignupPage.onsubmit");
 
     try {
@@ -35,7 +36,7 @@ export default function SignupPage() {
       window.location.href = `confirm?email=${email}`;
     } catch (error) {
       console.log(error);
-      setCognitoErrors(error.message);
+      setErrors(error.message);
     }
     return false;
   };
@@ -52,11 +53,6 @@ export default function SignupPage() {
   const password_onchange = (event) => {
     setPassword(event.target.value);
   };
-
-  let el_errors;
-  if (cognitoErrors) {
-    el_errors = <div className="errors">{cognitoErrors}</div>;
-  }
 
   return (
     <article className="signup-article">
@@ -95,7 +91,7 @@ export default function SignupPage() {
               />
             </div>
           </div>
-          {el_errors}
+          <FormErrors errors={errors} />
           <div className="submit">
             <button type="submit">Sign Up</button>
           </div>
