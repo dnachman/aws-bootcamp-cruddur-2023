@@ -11,10 +11,11 @@ import { ReactComponent as BombIcon } from "./svg/bomb.svg";
 
 export default function ActivityShowItem(props) {
   const attrs = {};
+  console.log("ActivityShowItem", props.activity);
   attrs.className = "activity_item expanded";
   return (
     <div {...attrs}>
-      <div className="acitivty_main">
+      <div className="activity_main">
         <div className="activity_content_wrap">
           <div className="activity_content">
             <Link
@@ -56,9 +57,9 @@ export default function ActivityShowItem(props) {
               {/* activity_times */}
             </div>
             {/* activity_meta */}
+            <div className="message">{props.activity.message}</div>
           </div>
           {/* activity_content */}
-          <div className="message">{props.activity.message}</div>
         </div>
 
         <div className="expandedMeta">

@@ -29,33 +29,24 @@ export default function ActivityShowPage() {
 
   const loadData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}/status/${params.activity_uuid}`;
-    let responseActivity = "";
-    let responseReplies = "";
     get(url, {
       auth: false,
       success: function (data) {
-        responseActivity = data.activity;
-        responseReplies = data.replies;
+        setActivity(data.activity);
+        setReplies(data.replies);
       },
     });
-    console.log("ActivityShowPage", responseActivity, responseReplies);
-    setActivity(responseActivity);
-    setReplies(responseReplies);
   };
-
-  React.useEffect(() => {
-    checkAuth(setUser);
-  }, []);
 
   React.useEffect(() => {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
-    // checkAuth(setUser);
 
     loadData();
+    checkAuth(setUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   let el_activity;
   if (activity !== null) {

@@ -23,7 +23,7 @@ export default function ActivityItem(props) {
 
   return (
     <div {...attrs}>
-      <div className="acitivty_main">
+      <div className="activity_main">
         <ActivityContent activity={props.activity} />
         <div className="activity_actions">
           <ActivityActionReply
