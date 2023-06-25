@@ -9,6 +9,7 @@ import RecoverPage from "./pages/RecoverPage";
 import MessageGroupsPage from "./pages/MessageGroupsPage";
 import MessageGroupPage from "./pages/MessageGroupPage";
 import MessageGroupNewPage from "./pages/MessageGroupNewPage";
+import ActivityShowPage from "./pages/ActivityShowPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/@:handle",
     element: <UserFeedPage />,
+  },
+  {
+    path: "/@:handle/status/:activity_uuid",
+    element: <ActivityShowPage />,
   },
   {
     path: "/messages",

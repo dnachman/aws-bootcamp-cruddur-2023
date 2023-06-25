@@ -47,16 +47,16 @@ Parameters:
     Default: https://api.honeycomb.io
   EnvAWSCognitoUserPoolId:
     Type: String
-    Default: us-east-1_Ynp7ieLpL
+    Default: us-east-1_ZK6BqmG6j
   EnvCognitoUserPoolClientId:
     Type: String
-    Default: 77b6n92j77dtiq8f6l2lm7mbb0
+    Default: 2u1fcd9cc53raog270qe1uaj87
   EnvFrontendUrl:
     Type: String
-    Default: "*"
+    Default: "https://cruddur.n5n.org"
   EnvBackendUrl:
     Type: String
-    Default: "*"
+    Default: "https://api.cruddur.n5n.org"
   SecretsAWSAccessKeyId:
     Type: String
     Default: 'arn:aws:ssm:us-east-1:220856138283:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'
@@ -154,9 +154,9 @@ Resources:
               - 'CMD-SHELL'
               - 'python /backend-flask/bin/health-check'
             Interval: 30
-            Timeout: 5
+            Timeout: 6
             Retries: 3
-            StartPeriod: 60
+            StartPeriod: 55
           PortMappings:
             - Name: !Ref ContainerName
               ContainerPort: !Ref ContainerPort
