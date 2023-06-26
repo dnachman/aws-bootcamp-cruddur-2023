@@ -13,7 +13,7 @@ if len(sys.argv) == 2:
     attrs = {}
 
 ddb = boto3.resource('dynamodb',**attrs)
-table_name = 'cruddur-messages'
+table_name = os.getenv("DDB_MESSAGE_TABLE")
 
 table = ddb.Table(table_name)
 response = table.scan()

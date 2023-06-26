@@ -18,5 +18,5 @@ sam build \
 --use-container \
 --config-file $CONFIG_PATH \
 --template $TEMPLATE_PATH \
---base-dir $FUNC_DIR
-#--parameter-overrides
+--base-dir $FUNC_DIR \
+--parameter-overrides table_name=$DDB_MESSAGE_TABLE

@@ -67,3 +67,10 @@ Create a new security group `CruddurLambdaSG` - no inbound rules needed
 Update RDS security group to allow inbound on `CruddurLambdaSG`
 
 Update Route53 with new ALB for api.cruddur...
+
+8. DDB
+```
+./ddb/build
+./ddb/package
+./ddb/deploy
+```
