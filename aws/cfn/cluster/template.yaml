@@ -14,7 +14,7 @@ Resources:
         - FARGATE
       ClusterSettings:
         - Name: containerInsights 
-          Value: enabled
+          Value: disabled
       Configuration:
         ExecuteCommandConfiguration:
           # KmsKeyId: !Ref KmsKeyId

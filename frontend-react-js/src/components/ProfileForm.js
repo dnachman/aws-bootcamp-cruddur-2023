@@ -29,13 +29,14 @@ export default function ProfileForm(props) {
         body: JSON.stringify(json),
         headers: {
           Origin: process.env.REACT_APP_FRONTEND_URL,
-          Authorization: `Bearer ${access_token}`,
+          Authorization: `${access_token}`,
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
       let data = await res.json();
       if (res.status === 200) {
+        console.log("presigned url", data.url);
         return data.url;
       } else {
         console.log(res);
@@ -65,6 +66,7 @@ export default function ProfileForm(props) {
         },
       });
       if (res.status === 200) {
+        console.log("s3upload success");
       } else {
         console.log(res);
       }
