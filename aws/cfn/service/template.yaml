@@ -57,6 +57,12 @@ Parameters:
   EnvBackendUrl:
     Type: String
     Default: "https://api.cruddur.n5n.org"
+  EnvDdbTableName:
+    Type: String
+    Default: "CrdDdb-DynamoDBTable-7EK7R1XM71MU"
+  EnvXrayEnabled:
+    Type: String
+    Default: "false"
   SecretsAWSAccessKeyId:
     Type: String
     Default: 'arn:aws:ssm:us-east-1:220856138283:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'
@@ -183,6 +189,11 @@ Resources:
               Value: !Ref EnvBackendUrl
             - Name: 'AWS_DEFAULT_REGION'
               Value: !Ref AWS::Region
+            - Name: 'DDB_MESSAGE_TABLE'
+              Value: !Ref EnvDdbTableName
+            - Name: 'AWS_XRAY_SDK_ENABLED'
+              Value: !Ref EnvXrayEnabled
+            
           Secrets:
             - Name: 'AWS_ACCESS_KEY_ID'
               ValueFrom: !Ref SecretsAWSAccessKeyId
