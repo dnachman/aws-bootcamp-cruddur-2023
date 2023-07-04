@@ -2,17 +2,15 @@
 set -e # stop the execution of the script if it fails
 
 # CFN_BUCKET set globally in the environment
-CFN_PATH="aws/cfn/service/template.yaml"
-CFN_STACK_NAME="CrdSrvBackendFlask"
+CFN_PATH="aws/cfn/sync/template.yaml"
+CFN_STACK_NAME="CrdSyncRole"
 
 cfn-lint $CFN_PATH
-
-# PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
 
 aws cloudformation deploy \
   --stack-name $CFN_STACK_NAME \
   --s3-bucket $CFN_BUCKET \
-  --s3-prefix service \
+  --s3-prefix sync \
   --region $AWS_DEFAULT_REGION \
   --template-file "$CFN_PATH" \
   --no-execute-changeset \
