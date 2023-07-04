@@ -17,14 +17,12 @@ from lib.helpers import model_json
 
 def load(app):
     @app.route("/api/message_groups", methods=["GET"])
-    @cross_origin
     @jwt_required()
     def data_message_groups():
         model = MessageGroups.run(cognito_user_id=g.cognito_user_id)
         return model_json(model)
 
     @app.route("/api/messages/<string:message_group_uuid>", methods=["GET"])
-    @cross_origin
     @jwt_required()
     def data_messages(message_group_uuid):
         model = Messages.run(
