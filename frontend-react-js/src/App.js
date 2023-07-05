@@ -15,6 +15,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Amplify } from "aws-amplify";
+import AboutPage from "./pages/AboutPage";
 
 Amplify.configure({
   AWS_PROJECT_REGION: process.env.REACT_AWS_PROJECT_REGION,
@@ -75,6 +76,14 @@ const router = createBrowserRouter([
   {
     path: "/forgot",
     element: <RecoverPage />,
+  },
+  {
+    path: "/about",
+    element: <AboutPage />,
+  },
+  {
+    path: "*",
+    element: <HomeFeedPage />,
   },
 ]);
 
