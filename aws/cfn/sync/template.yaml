@@ -16,6 +16,9 @@ Parameters:
     Description: Audience supplied to configure-aws-credentials.
     Default: "sts.amazonaws.com"
     Type: String
+  SyncBucketName:
+    Type: String
+    Default: 'cruddur.n5n.org'
 
 Conditions:
   CreateOIDCProvider: !Equals 
@@ -40,6 +43,20 @@ Resources:
                 token.actions.githubusercontent.com:aud: !Ref OIDCAudience
               StringLike:
                 token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrg}/${RepositoryName}:*
+      Policies:
+        # When the Application Source downloads the code.
+        # It needs to zip it and place it a bucket, so we need
+        # to suplly an artifacts bucket.
+        - PolicyName: !Sub ${AWS::StackName}S3ArtifactAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - s3:*
+                Effect: Allow
+                Resource:
+                  - !Sub arn:aws:s3:::${SyncBucketName}
+                  - !Sub arn:aws:s3:::${SyncBucketName}/*
 
   GithubOidc:
     Type: AWS::IAM::OIDCProvider
