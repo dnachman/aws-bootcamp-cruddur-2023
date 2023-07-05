@@ -89,4 +89,10 @@ Backend application:
 Frontend application:
 
 - implement replies
-- refactor requests, other utilities,
+- refactor requests, other utilities
+- fix `useEffect` that required disabling eslint rules
+
+DevOps:
+
+- implement Github Actions for frontend deployment to S3 and invalidation of CF distribution
+- Clean up sync role with proper OIDC fingerprints and permissions to S3 and CF
