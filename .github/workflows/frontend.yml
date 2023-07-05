@@ -28,6 +28,7 @@ jobs:
       - run: npm run build
   deploy:
     name: Sync Static Build to S3 Bucket
+    needs: build
     runs-on: ubuntu-latest
     defaults:
       run:
