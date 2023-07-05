@@ -22,7 +22,7 @@ export default function UserFeedPage() {
 
   const params = useParams();
 
-  const loadData = async () => {
+  React.useEffect(() => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`;
     get(url, {
       auth: false,
@@ -32,16 +32,14 @@ export default function UserFeedPage() {
         setActivities(data.activities);
       },
     });
-  };
+  }, [params]);
 
   React.useEffect(() => {
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
 
-    loadData();
     checkAuth(setUser);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

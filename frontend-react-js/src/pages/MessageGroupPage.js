@@ -28,7 +28,7 @@ export default function MessageGroupPage() {
     });
   };
 
-  const loadMessageGroupData = async () => {
+  React.useEffect(() => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/messages/${params.message_group_uuid}`;
     get(url, {
       auth: true,
@@ -36,7 +36,7 @@ export default function MessageGroupPage() {
         setMessages(data);
       },
     });
-  };
+  }, [params]);
 
   React.useEffect(() => {
     //prevents double call
@@ -44,10 +44,10 @@ export default function MessageGroupPage() {
     dataFetchedRef.current = true;
 
     loadMessageGroupsData();
-    loadMessageGroupData();
+    // loadMessageGroupData();
     checkAuth(setUser);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [messages]);
+
   return (
     <article>
       <DesktopNavigation user={user} active={"home"} setPopped={setPopped} />
