@@ -21,7 +21,7 @@ Parameters:
     Default: 'cruddur.n5n.org'
   CloudFrontDistributionARN:
     Type: String
-    Default: 'CloudFrontDistributionARN'
+    Default: 'arn:aws:cloudfront::220856138283:distribution/E2QYO1KSVQ6D12'
 
 Conditions:
   CreateOIDCProvider: !Equals 
@@ -68,7 +68,7 @@ Resources:
                 - cloudfront:CreateInvalidation
                 Effect: Allow
                 Resource:
-                  - !Sub arn:aws:s3:::${CloudFrontDistributionARN}
+                  - !Ref CloudFrontDistributionARN
 
   GithubOidc:
     Type: AWS::IAM::OIDCProvider
