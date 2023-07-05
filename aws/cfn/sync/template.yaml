@@ -19,6 +19,9 @@ Parameters:
   SyncBucketName:
     Type: String
     Default: 'cruddur.n5n.org'
+  CloudFrontDistributionARN:
+    Type: String
+    Default: 'CloudFrontDistributionARN'
 
 Conditions:
   CreateOIDCProvider: !Equals 
@@ -57,6 +60,15 @@ Resources:
                 Resource:
                   - !Sub arn:aws:s3:::${SyncBucketName}
                   - !Sub arn:aws:s3:::${SyncBucketName}/*
+        - PolicyName: !Sub ${AWS::StackName}CloudFrontAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - cloudfront:CreateInvalidation
+                Effect: Allow
+                Resource:
+                  - !Sub arn:aws:s3:::${CloudFrontDistributionARN}
 
   GithubOidc:
     Type: AWS::IAM::OIDCProvider
